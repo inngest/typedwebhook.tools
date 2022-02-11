@@ -1,0 +1,34 @@
+name = "webhook-typer"
+type = "javascript"
+
+account_id = ""
+workers_dev = true
+# route = ""
+# zone_id = ""
+
+compatibility_date = "2022-02-11"
+compatibility_flags = []
+
+kv_namespaces = [ 
+  { binding = "SESSIONS", id = "8f972cab743647288e47bf12a11b8e66" }
+]
+
+[durable_objects]
+bindings = [
+  { name = "WEBSOCKETS", class_name = "WebSocketStore" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["Session"]
+
+[build]
+command = "npm run build"
+
+[build.upload]
+format = "modules"
+dir = "dist"
+main = "./index.mjs"
+
+[miniflare]
+durable_objects_persist = true
