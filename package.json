@@ -1,12 +1,12 @@
 {
-  "name": "miniflare-typescript-esbuild-jest",
+  "name": "webhook-typer",
   "version": "1.0.0",
-  "description": "Example project using Miniflare, TypeScript, esbuild and Jest",
+  "description": "A service that allows you to inspect the types of webhook payloads",
   "type": "module",
   "module": "./dist/index.mjs",
   "scripts": {
     "build": "node build.js",
-    "dev": "miniflare --live-reload --debug",
+    "dev": "miniflare --debug",
     "test": "npm run build && node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "types:check": "tsc && tsc -p test/tsconfig.json"
   },
@@ -23,5 +23,8 @@
     "prettier": "^2.4.1",
     "ts-jest": "^27.0.7",
     "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "uuid": "^8.3.2"
   }
 }
