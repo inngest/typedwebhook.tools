@@ -1,7 +1,14 @@
+import { v4 as uuid } from "uuid"
+
 import { buildResponse } from "./response"
-import { parseWebhookPath, parseWebsocketPath } from "./urls"
+import {
+  parseWebhookPath,
+  parseWebsocketPath,
+  isStartSessionPath,
+} from "./urls"
 
 const DurableObjectIdName = "WebSocketSessions"
+const SessionTtl = 5 * 60 // seconds
 
 export async function handleRequest(request: Request, env: Bindings) {
   const { SESSIONS, WEBSOCKETS } = env
@@ -39,7 +46,18 @@ export async function handleRequest(request: Request, env: Bindings) {
     return await stub.fetch(request)
   }
 
-  return await buildResponse(request, env)
+  // Handle get new webhook URL
+  if (isStartSessionPath(request.url)) {
+    const id: string = uuid()
+    const token: string = uuid()
+    await SESSIONS.put(id, token, { expirationTtl: SessionTtl })
+    return new Response(JSON.stringify({ id, token, url: `/webhook/${id}` }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    })
+  }
+
+  return await buildResponse(request)
 }
 
 const worker: ExportedHandler<Bindings> = { fetch: handleRequest }

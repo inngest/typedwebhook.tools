@@ -4,7 +4,7 @@ export const parseWebhookPath = (
   url: string
 ): { [key: string]: string } | undefined => {
   const u: URL = new URL(url)
-  const match = /\/webhook\/(?<id>.+)/.exec(u.pathname)
+  const match = /^\/webhook\/(?<id>.+)$/.exec(u.pathname)
   return match?.groups
 }
 
@@ -14,6 +14,13 @@ export const parseWebsocketPath = (
   url: string
 ): { [key: string]: string } | undefined => {
   const u: URL = new URL(url)
-  const match = /\/ws\/(?<id>.+)\/(?<token>.+)/.exec(u.pathname)
+  const match = /^\/ws\/(?<id>.+)\/(?<token>.+)$/.exec(u.pathname)
   return match?.groups
+}
+
+// Check the path is a request to start a new webhook session
+export const isStartSessionPath = (url: string): boolean => {
+  const u: URL = new URL(url)
+  const match = /^\/new_webhook$/.exec(u.pathname)
+  return !!match
 }

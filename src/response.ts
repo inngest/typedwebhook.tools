@@ -1,52 +1,55 @@
 const script = `
-const hostname = "localhost:8787";
-// TODO add channel id to URL
-let websocket = new WebSocket("ws://" + hostname + "/ws/" + id + "/" + token);
-if (!websocket) {
-  throw new Error("Server didn't accept WebSocket")
-}
+;(function () {
+  const host = window.location.host;
+  const messagesEl = document.querySelector("#js-messages");
+  const webhookURLEl = document.querySelector("#js-webhook-url");
 
-const messages = document.querySelector("#js-messages");
+  function getWebhookInfo() {
+    return fetch("/new_webhook").then(res => res.json())
+  }
 
-websocket.addEventListener("open", () => {
-  console.log("Opened websocket")
-})
+  function initWebhook(id, token) {
+    let websocket = new WebSocket("ws://" + host + "/ws/" + id + "/" + token);
+    if (!websocket) {
+      throw new Error("Server didn't accept WebSocket")
+    }
 
-websocket.addEventListener("message", (message) => {
-  console.log(message)
-  const pre = document.createElement("pre");
-  pre.innerText = message.data;
-  const p = document.createElement("p");
-  p.appendChild(pre);
-  messages.appendChild(p);
-})
+    websocket.addEventListener("open", () => {
+      console.log("Opened websocket")
+    })
+    
+    websocket.addEventListener("message", (message) => {
+      const pre = document.createElement("pre");
+      pre.innerText = message.data;
+      const p = document.createElement("p");
+      p.appendChild(pre);
+      messagesEl.appendChild(p);
+    })
+    
+    websocket.addEventListener("close", (message) => {
+      console.log("Closed websocket")
+    })
+    
+    websocket.addEventListener("error", (message) => {
+      console.log("Something went wrong with the WebSocket")
+    })
+    
+    // Close WebSocket connection at a later point
+    const closeConnection = () => websocket.close()
+  }
 
-websocket.addEventListener("close", (message) => {
-  console.log("Closed websocket")
-})
+  function init() {
+    getWebhookInfo().then(({ id, token, url }) => {
+      webhookURLEl.innerText = url;
+      initWebhook(id, token);
+    })
+  }
 
-websocket.addEventListener("error", (message) => {
-  console.log("Something went wrong with the WebSocket")
-
-  // Potentially reconnect the WebSocket connection, by instantiating a
-  // new WebSocket as seen above, and connecting new events
-  // websocket = new WebSocket(url)
-  // websocket.addEventListener(...)
-})
-
-// Close WebSocket connection at a later point
-const closeConnection = () => websocket.close()
+  init();
+})();
 `
 
-export async function buildResponse(request: Request, env: Bindings) {
-  const { SESSIONS } = env
-  // TODO - Generate uuid and token
-  // For testing:
-  const id = "fdeb8ff6-211e-40a0-b008-8579be78587f"
-  const token = "918067da-a0c4-499a-ba7d-bfe25c1c06df"
-
-  await SESSIONS.put(id, token, { expirationTtl: 1000 })
-
+export async function buildResponse(request: Request) {
   const html = `
     <!DOCTYPE html>
     <html>
@@ -83,12 +86,10 @@ export async function buildResponse(request: Request, env: Bindings) {
     <body>
         <h1>Webhook typer</h1>
         <p>
-          Your webhook URL: <code>/webhook/${id}</code>
+          Your webhook URL: <code id="js-webhook-url">...</code>
         </p>
         <div id="js-messages" class="messages"></div>
         <script type="text/javascript">
-          const id = "${id}"
-          const token = "${token}"
           ${script}
         </script>
     </body>
