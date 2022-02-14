@@ -1,6 +1,7 @@
 const script = `
 ;(function () {
   const host = window.location.host;
+  const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
   const messagesEl = document.querySelector("#js-messages");
   const webhookURLEl = document.querySelector("#js-webhook-url");
 
@@ -15,7 +16,7 @@ const script = `
   }
 
   function initWebhook(id, token) {
-    let websocket = new WebSocket("ws://" + host + "/ws/" + id + "/" + token);
+    let websocket = new WebSocket(wsProtocol + "//" + host + "/ws/" + id + "/" + token);
     if (!websocket) {
       throw new Error("Server didn't accept WebSocket")
     }
