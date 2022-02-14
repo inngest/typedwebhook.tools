@@ -1,10 +1,7 @@
-name = "webhook-typer"
 type = "javascript"
 
 account_id = ""
 workers_dev = true
-# route = ""
-# zone_id = ""
 
 compatibility_date = "2022-02-11"
 compatibility_flags = []
@@ -20,7 +17,7 @@ bindings = [
 
 [[migrations]]
 tag = "v1"
-new_classes = ["Session"]
+new_classes = ["WebSocketStore"]
 
 [build]
 command = "npm run build"
@@ -32,3 +29,13 @@ main = "./index.mjs"
 
 [miniflare]
 durable_objects_persist = true
+
+[env.staging]
+name = "webhook-typer-staging"
+route = "webhook-typer-staging.inngest.workers.dev/*"
+vars = { ENVIRONMENT = "staging" }
+
+[env.production]
+name = "webhook-typer"
+route = "webhook-typer.inngest.workers.dev/*"
+vars = { ENVIRONMENT = "production" }
