@@ -6,7 +6,7 @@
   "module": "./dist/index.mjs",
   "scripts": {
     "build": "node build.js",
-    "dev": "miniflare --debug",
+    "dev": "miniflare --live-reload --debug",
     "test": "npm run build && node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "types:check": "tsc && tsc -p test/tsconfig.json"
   },

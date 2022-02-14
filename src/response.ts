@@ -8,6 +8,12 @@ const script = `
     return fetch("/new_webhook").then(res => res.json())
   }
 
+  function createPreEl(text) {
+    const pre = document.createElement("pre");
+    pre.innerText = JSON.stringify(text);
+    return pre;
+  }
+
   function initWebhook(id, token) {
     let websocket = new WebSocket("ws://" + host + "/ws/" + id + "/" + token);
     if (!websocket) {
@@ -19,10 +25,16 @@ const script = `
     })
     
     websocket.addEventListener("message", (message) => {
-      const pre = document.createElement("pre");
-      pre.innerText = message.data;
+      const data = JSON.parse(message.data)
+
+      const children = Object.keys(data).map(key => {
+        return createPreEl(data[key]);
+      })
+      
       const p = document.createElement("p");
-      p.appendChild(pre);
+      children.forEach(child => {
+        p.appendChild(child);
+      });
       messagesEl.appendChild(p);
     })
     
@@ -80,6 +92,9 @@ export async function buildResponse(request: Request) {
           background-color: #000;
           color: #ACB2C2;
           border-radius: 0.5rem;
+        }
+        .messages pre {
+          white-space: pre-wrap;
         }
         </style>
     </head>

@@ -1,5 +1,12 @@
 import { parseWebhookPath, parseWebsocketPath } from "./urls"
 
+type RequestMessage = {
+  url: string
+  method: string
+  headers: { [key: string]: string }
+  body: string
+}
+
 export class WebSocketStore implements DurableObject {
   // Store all active sessions in a map
   #activeSockets: Map<string, WebSocket>
@@ -20,8 +27,7 @@ export class WebSocketStore implements DurableObject {
       const { id } = webhookURLParams
       const webSocket = this.#activeSockets.get(id)
       if (webSocket) {
-        const body = await request.text()
-        webSocket.send(body)
+        await this.forwardRequestToClient(request, webSocket)
         return new Response("OK", { status: 200 })
       }
       return new Response("Bad Request", { status: 400 })
@@ -37,6 +43,18 @@ export class WebSocketStore implements DurableObject {
     }
 
     return new Response(null, { status: 400 })
+  }
+
+  async forwardRequestToClient(request: Request, server: WebSocket) {
+    const body = await request.text()
+    const message: RequestMessage = {
+      url: request.url,
+      method: request.method,
+      headers: Object.fromEntries(request.headers.entries()),
+      body,
+    }
+    console.log(request.headers)
+    server.send(JSON.stringify(message))
   }
 
   async handleSession(id: string, server: WebSocket) {
