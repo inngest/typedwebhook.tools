@@ -1,3 +1,6 @@
+name = "webhook-typer"
+route = "webhook-typer.inngest.workers.dev/*"
+vars = { ENVIRONMENT = "production" }
 type = "javascript"
 
 account_id = ""
@@ -6,7 +9,7 @@ workers_dev = true
 compatibility_date = "2022-02-11"
 compatibility_flags = []
 
-kv_namespaces = [ 
+kv_namespaces = [
   { binding = "SESSIONS", id = "8f972cab743647288e47bf12a11b8e66" }
 ]
 
@@ -34,8 +37,3 @@ durable_objects_persist = true
 name = "webhook-typer-staging"
 route = "webhook-typer-staging.inngest.workers.dev/*"
 vars = { ENVIRONMENT = "staging" }
-
-[env.production]
-name = "webhook-typer"
-route = "webhook-typer.inngest.workers.dev/*"
-vars = { ENVIRONMENT = "production" }
