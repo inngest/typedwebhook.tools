@@ -8,7 +8,7 @@ import {
 } from "./urls"
 
 const DurableObjectIdName = "WebSocketSessions"
-const SessionTtl = 5 * 60 // seconds
+const SessionTtl = 5 * 60 // TTL in seconds
 
 export async function handleRequest(request: Request, env: Bindings) {
   const { SESSIONS, WEBSOCKETS } = env
@@ -18,7 +18,7 @@ export async function handleRequest(request: Request, env: Bindings) {
   if (webhookURLParams) {
     // Check if the webhook is active
     const { id } = webhookURLParams
-    const value = await SESSIONS.get(id)
+    const value = await SESSIONS.get(id, { cacheTtl: SessionTtl })
     if (!value) {
       return new Response("Not Found", { status: 404 })
     }
@@ -36,7 +36,7 @@ export async function handleRequest(request: Request, env: Bindings) {
     }
     const { id, token } = websocketURLParams
 
-    const value = await SESSIONS.get(id)
+    const value = await SESSIONS.get(id, { cacheTtl: SessionTtl })
     if (value !== token) {
       return new Response("Unauthorized", { status: 401 })
     }

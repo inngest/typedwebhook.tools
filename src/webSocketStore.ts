@@ -5,7 +5,10 @@ export class WebSocketStore implements DurableObject {
   #activeSockets: Map<string, WebSocket>
 
   // Store this.state for later access
-  constructor(private readonly state: DurableObjectState) {
+  constructor(
+    private readonly state: DurableObjectState,
+    private readonly env: Bindings
+  ) {
     this.#activeSockets = new Map<string, WebSocket>()
   }
 
@@ -45,6 +48,7 @@ export class WebSocketStore implements DurableObject {
     let closeOrErrorHandler = (evt: any) => {
       console.log("Closed websocket connection:", evt)
       this.#activeSockets.delete(id)
+      this.env.SESSIONS.delete(id)
     }
     server.addEventListener("close", closeOrErrorHandler)
     // server.addEventListener("error", closeOrErrorHandler)
