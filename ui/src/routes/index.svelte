@@ -3,26 +3,30 @@
 </script>
 
 <script lang="ts">
+  import { onMount } from 'svelte';
+  import state, { connect } from '$lib/stores'
+  import url from '$lib/url'
 	import WebhookURL from '$lib/WebhookURL.svelte';
 	import RequestList from '$lib/RequestList.svelte';
 	import RequestData from '$lib/RequestData/RequestData.svelte';
 	import Explainer from '$lib/Explainer.svelte';
 
-  // TODO: Create a new webhook URL.
-  const id = async () => {
-    return "";
-  }
+  onMount(async () => {
+    connect();
+  });
+
+  console.log($state, $url);
 </script>
 
 <svelte:head>
 	<title>Typed Webhook Testing</title>
 </svelte:head>
 
-<RequestList />
+<RequestList items={$state.requests} />
 <main>
-  <WebhookURL />
+  <WebhookURL url={$state.url} />
   <Explainer />
-  <RequestData preview={true} />
+  <RequestData preview={$state.requests.length === 0} />
 </main>
 
 <style>

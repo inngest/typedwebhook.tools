@@ -1,10 +1,11 @@
 import { parseWebhookPath, parseWebsocketPath } from "./urls"
 
 type RequestMessage = {
-  url: string
-  method: string
-  headers: { [key: string]: string }
-  body: string
+  url: string;
+  method: string;
+  headers: { [key: string]: string };
+  body: string;
+  ts: number;
 }
 
 export class WebSocketStore implements DurableObject {
@@ -52,6 +53,7 @@ export class WebSocketStore implements DurableObject {
       method: request.method,
       headers: Object.fromEntries(request.headers.entries()),
       body,
+      ts: new Date().valueOf(),
     }
     console.log(request.headers)
     server.send(JSON.stringify(message))

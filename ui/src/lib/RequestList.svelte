@@ -1,6 +1,28 @@
 <script lang="ts">
+  import { afterUpdate } from 'svelte';
+  import url from '$lib/url'
   import Loading from "$lib/Loading.svelte";
-  let items = [];
+  import { goto } from '$app/navigation';
+
+  export let items = [];
+
+  $: index = parseInt($url?.pathname?.replace("/", ""), 10);
+
+  const onclick = (e) => {
+    const data = e.target.getAttribute("data-n");
+    e.preventDefault();
+    goto("/" + data + $url?.hash);
+  }
+
+  afterUpdate(() => {
+    // If we only have one request, select it.
+    if (items.length === 0 && $url.pathname !== "/") {
+      goto("/");
+    }
+    if (items.length === 1 && $url.pathname !== "/1") {
+      goto("/1");
+    }
+	});
 </script>
 
 <div>
@@ -9,36 +31,12 @@
   {:else}
     <h2>Incoming requests</h2>
     <ol>
-      <li>
-        <button>
-          <span>#4 9:38:15am</span>
-          <span class="tag">POST</span>
-        </button>
-      </li>
-
-      <li class="active">
-        <button>
-          <span>#3 9:38:15am</span>
-          <span class="tag">POST</span>
-        </button>
-      </li>
-
-      <li>
-        <button>
-          <span>#2 9:38:15am</span>
-          <span class="tag">POST</span>
-        </button>
-      </li>
-
-      <li>
-        <button>
-          <span>#1 9:38:15am</span>
-          <span class="tag">POST</span>
-        </button>
-      </li>
-
-      {#each items as item}
-        <li>
+      {#each items as item, n}
+        <li class:active={(items.length - n) === index}>
+          <a href="/{items.length - (n)}" on:click={onclick} data-n={items.length - (n)}>
+            <span>#{items.length - (n)} {new Date(item.ts).toLocaleString().split(", ")[1]}</span>
+            <span class="tag">{item.method}</span>
+          </a>
         </li>
       {/each}
 
@@ -63,28 +61,27 @@
     padding: 0;
   }
 
-  li {
-  }
-
-  button {
-    font-size: .9rem;
+  a {
+    font-size: .8rem;
     width: 100%;
     padding: 1rem;
     background: transparent;
     text-align: left;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    color: inherit;
 
     transition: all .2s;
 
     border: 0 none;
   }
 
-  button:hover {
+  a:hover {
     background: rgba(0, 0, 0, 0.03);
   }
 
-  li.active button {
+  li.active a {
     background: rgba(0, 0, 0, 0.06);
     font-weight: bold;
   }
@@ -94,5 +91,10 @@
 
   .tag {
     font-family: var(--font-mono);
+    border: 1px solid #ddd;
+    padding: 3px 5px;
+    border-radius: 3px;
+    font-size: .8rem;
+    font-weight: 600;
   }
 </style>

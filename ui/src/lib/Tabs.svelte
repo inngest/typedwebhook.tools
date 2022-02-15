@@ -2,7 +2,6 @@
   type Tab = {
     label: string;
     href: string;
-    onClick: () => void;
   };
 
   export let tabs: Tab[] = [];
