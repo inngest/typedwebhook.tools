@@ -83,6 +83,7 @@
 		display: flex;
 		flex-direction: column;
     margin: 0 1.5rem 0 0;
+    padding: 0 0 1rem;
 		box-sizing: border-box;
     box-shadow: 0 0 3rem rgba(0, 0, 0, 0.04);
     border-radius: 3px;
