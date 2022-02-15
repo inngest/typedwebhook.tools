@@ -24,7 +24,7 @@
 
 <RequestList items={$state.requests} />
 <main>
-  <WebhookURL url={$state.url} />
+  <WebhookURL path={$state.url} />
   <Explainer />
   <RequestData preview={$state.requests.length === 0} />
 </main>

@@ -1,28 +1,29 @@
 <script lang="ts">
-
-  export let url = "";
-
+  import url from '$lib/url'
   import state from '$lib/stores'
-  const domain = `https://typedwebhookbin.com/${url}`;
+
+  export let path = "";
+
+  $: link = `${url.origin}${path}`;
 
   const onclick = async () => {
     try {
-      await navigator?.clipboard?.writeText(url);
+      await navigator?.clipboard?.writeText(link);
     } catch(e) {
     }
   };
 
 </script>
 
-{#if url === ""}
+{#if link === ""}
   <div>
     <p>Generating a fresh, unique webhook URL for you.</p>
-    <code>A new webhook testing URL is being created...</code>
+    <code>A new webhook testing URL is being created for you...</code>
   </div>
 {:else}
   <div on:click={onclick}>
-    <p>Your unique webhook URL is</p>
-    <code class="green">{url}</code>
+    <p>Your unique webhook URL is (click to copy):</p>
+    <code class="green">{link}</code>
   </div>
 {/if}
 

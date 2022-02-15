@@ -23,12 +23,12 @@
 </script>
 
 <svelte:head>
-	<title>Typed Webhook Testing</title>
+  <title>Typed Webhook Testing: a tool to test webhooks and type payloads</title>
 </svelte:head>
 
 <RequestList items={$state.requests} />
 <main>
-  <WebhookURL url={$state.url} />
+  <WebhookURL path={$state.url} />
   <RequestData
     headers={data.headers}
     body={data.body}
