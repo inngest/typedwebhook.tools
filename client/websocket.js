@@ -1,4 +1,4 @@
-let websocket = new WebSocket("ws://localhost:8787/ws")
+let websocket = new WebSocket("ws://deb.shared:8787/ws")
 if (!websocket) {
   throw new Error("Server didn't accept WebSocket")
 }

@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { JsonView } from '@zerodevx/svelte-json-view'
 	import Tabs from '$lib/Tabs.svelte';
+	import Types from './Types.svelte';
   import url from '$lib/url'
+  import * as wasm from '$lib/wasm'
 
   export let method = 'POST';
   export let body = '';
@@ -12,7 +14,7 @@
   // Which view we have enabled, based off of the hash.
   let currentView = $url?.hash || '#body';
 
-  console.log(currentView);
+  wasm.init();
 
   // Extract all headers from 
   const headerKeys = Object.keys(headers).sort((a, b) => a.localeCompare(b));
@@ -59,10 +61,20 @@
 
     {#if $url?.hash === "#json"}
       {#if !isJSON}
-        <p>This request is not valid JSON :(</p>
+        <p class="no-json">This request is not valid JSON 😢</p>
       {:else}
         <div class="json">
           <JsonView {json} />
+        </div>
+      {/if}
+    {/if}
+
+    {#if $url?.hash === "#types"}
+      {#if !isJSON}
+        <p class="no-json">This request is not valid JSON, so we can't make types for this body 😢</p>
+      {:else}
+        <div class="json">
+          <Types {body} />
         </div>
       {/if}
     {/if}
@@ -136,5 +148,10 @@
   .json {
     font-family: var(--font-mono);
     padding: 1rem 0;
+  }
+
+  .no-json {
+    margin: 2rem 0;
+    text-align: center;
   }
 </style>
