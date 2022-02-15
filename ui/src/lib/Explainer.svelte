@@ -1,7 +1,7 @@
 
 <hgroup>
   <h1>Typed webhook testing</h1>
-  <h2>A webhook tester website for testing payloads, with automatic type generation</h2>
+  <h2>A webhook testing tool for checking payloads, with automatic type generation</h2>
 </hgroup>
 <div class="explainer">
   <p>Any requests sent to this URL will be logged instantly for <strong>testing webhooks and HTTP requests</strong>.  You can inspect the request headers and body, and <strong>automatically generate typescript types</strong>, cue schemas, and a JSON schema for the body.</p>

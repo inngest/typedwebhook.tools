@@ -53,7 +53,10 @@ export async function handleRequest(request: Request, env: Bindings) {
     await SESSIONS.put(id, token, { expirationTtl: SessionTtl })
     return new Response(JSON.stringify({ id, token, url: `/webhook/${id}` }), {
       status: 200,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     })
   }
 

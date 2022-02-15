@@ -1,11 +1,11 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
 	import { JsonView } from '@zerodevx/svelte-json-view'
   import * as wasm from '$lib/wasm'
 
   export let body = '';
 
-  // Initialize wasm
-  const promise = wasm.init(() => {
+  $: promise = wasm.init(() => {
     const cue = fromJSON(body);
     const ts = toTS("#Event: " + cue);
 

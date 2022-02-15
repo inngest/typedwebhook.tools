@@ -1,7 +1,9 @@
 <script lang="ts">
-  export let uuid: string = "";
 
-  const url = `https://typedwebhookbin.com/webhook/${uuid}`;
+  export let url = "";
+
+  import state from '$lib/stores'
+  const domain = `https://typedwebhookbin.com/${url}`;
 
   const onclick = async () => {
     try {
@@ -12,7 +14,7 @@
 
 </script>
 
-{#if uuid === ""}
+{#if url === ""}
   <div>
     <p>Generating a fresh, unique webhook URL for you.</p>
     <code>A new webhook testing URL is being created...</code>
@@ -20,7 +22,7 @@
 {:else}
   <div on:click={onclick}>
     <p>Your unique webhook URL is</p>
-    <code>{url}</code>
+    <code class="green">{url}</code>
   </div>
 {/if}
 
@@ -34,8 +36,7 @@
     align-items: center;
     cursor: pointer;
 
-    background-image:
-        linear-gradient(135deg, #f7f6f2 12.50%, #ffffff 12.50%, #ffffff 50%, #f7f6f2 50%, #f7f6f2 62.50%, #ffffff 62.50%, #ffffff 100%);
+    background-image: linear-gradient(135deg, #f7f6f2 12.50%, #ffffff 12.50%, #ffffff 50%, #f7f6f2 50%, #f7f6f2 62.50%, #ffffff 62.50%, #ffffff 100%);
     background-size: 5.66px 5.66px;
   }
 
@@ -59,6 +60,9 @@
     transition: all .3s;
   }
   small { opacity: .4 }
+  .green {
+    background: #daf4da;
+  }
 
 </style>
 

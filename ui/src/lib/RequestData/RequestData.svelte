@@ -3,7 +3,6 @@
 	import Tabs from '$lib/Tabs.svelte';
 	import Types from './Types.svelte';
   import url from '$lib/url'
-  import * as wasm from '$lib/wasm'
 
   export let preview = false;
   export let method = 'POST';
@@ -13,24 +12,20 @@
   export let time = '';
 
   // Which view we have enabled, based off of the hash.
-  let currentView = $url?.hash || '#body';
-
-  wasm.init();
 
   // Extract all headers from 
-  const headerKeys = Object.keys(headers).sort((a, b) => a.localeCompare(b));
+  $: headerKeys = Object.keys(headers).sort((a, b) => a.localeCompare(b)).filter(key => key.indexOf("cf-") !== 0);
 
-  const [json, isJSON] = (() => {
+  $: [json, isJSON] = (() => {
     try {
       return [JSON.parse(body), true];
     } catch(e) {
-      console.log(body, e);
       return [undefined, false];
     };
   })(body);
 
   if (size === -1) {
-    size = body.length;
+    $: size = body.length;
   }
 </script>
 
@@ -47,7 +42,7 @@
     <div class="th">Value</div>
     {#each headerKeys as header}
       <div class="header-name">{header}</div>
-      <div>{headers[header]}</div>
+      <div>{(headers || {})[header]}</div>
     {/each}
   </div>
 
@@ -131,7 +126,7 @@
   }
 
   .header-table div {
-    padding: .35rem 0;
+    padding: .25rem 0;
     border-bottom: 1px solid #f6f6f6;
     display: flex;
     align-items: center;
@@ -141,8 +136,12 @@
     /* We use this instead of grid gap so that the border extends across the row */
     padding-right: 40px !important;
     font-family: var(--font);
-    font-size: .75rem;
+    font-size: .7rem;
     opacity: .8;
+  }
+
+  .header-name + div {
+    font-size: .75rem;
   }
 
   .header-table .th {
