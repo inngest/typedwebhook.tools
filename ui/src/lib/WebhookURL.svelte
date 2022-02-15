@@ -23,8 +23,8 @@
 <style>
 
   div {
-    padding: 1rem;
-    margin: 0 0 3rem;
+    padding: 1.5rem;
+    margin: 0 0 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
