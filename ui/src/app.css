@@ -27,7 +27,7 @@ code {
   font-family: var(--font-mono);
 }
 
-pre {
+pre, .pre {
   font-size: 16px;
   font-family: var(--font-mono);
   border-radius: 3px;

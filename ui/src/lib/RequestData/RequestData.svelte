@@ -23,6 +23,7 @@
     try {
       return [JSON.parse(body), true];
     } catch(e) {
+      console.log(body, e);
       return [undefined, false];
     };
   })(body);
@@ -56,7 +57,7 @@
     />
 
     {#if ($url?.hash || "#body") === "#body"}
-      <pre><code>{body}</code></pre>
+      <code class="pre">{body}</code>
     {/if}
 
     {#if $url?.hash === "#json"}
@@ -141,7 +142,8 @@
     opacity: .5;
   }
 
-  pre {
+  code {
+    display: block;
     margin-top: 2rem;
   }
 
