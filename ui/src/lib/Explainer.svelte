@@ -11,7 +11,7 @@
 <style>
   hgroup {
     text-align: center;
-    padding: 4rem 0;
+    padding: 3rem 0 2rem;
   }
 
   h2 {
