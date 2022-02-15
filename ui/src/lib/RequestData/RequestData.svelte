@@ -5,6 +5,7 @@
   import url from '$lib/url'
   import * as wasm from '$lib/wasm'
 
+  export let preview = false;
   export let method = 'POST';
   export let body = '';
   export let size = -1;
@@ -33,9 +34,13 @@
   }
 </script>
 
-<div class="request-data">
+<div class="request-data" class:preview={preview}>
   <h2>Request data</h2>
-  <p>Request received at 9:38am from <code>10.123.18.199</code></p>
+  {#if preview}
+    <p>Waiting for your first request...</p>
+  {:else}
+    <p>Request received at 9:38am from <code>10.123.18.199</code></p>
+  {/if}
 
   <div class="header-table">
     <div class="th">Header</div>
@@ -57,7 +62,7 @@
     />
 
     {#if ($url?.hash || "#body") === "#body"}
-      <code class="pre">{body}</code>
+      <code class="pre">{body || "No data"}</code>
     {/if}
 
     {#if $url?.hash === "#json"}
@@ -83,6 +88,10 @@
 </div>
 
 <style>
+  .preview {
+    opacity: .6;
+  }
+
   .request-data {
 		padding: 1.5rem 5rem;
     background: #fff;
@@ -142,7 +151,7 @@
     opacity: .5;
   }
 
-  code {
+  .body code {
     display: block;
     margin-top: 2rem;
   }
@@ -150,6 +159,10 @@
   .json {
     font-family: var(--font-mono);
     padding: 1rem 0;
+  }
+
+  .th:first-of-type {
+    min-width: 120px;
   }
 
   .no-json {

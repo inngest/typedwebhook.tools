@@ -40,7 +40,7 @@
 
   .root {
     display: grid;
-    grid-template-columns: minmax(200px, 300px) auto;
+    grid-template-columns: 270px auto;
     min-height: calc(100vh - 9rem);
   }
 
