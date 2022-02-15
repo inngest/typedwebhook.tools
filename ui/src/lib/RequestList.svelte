@@ -1,0 +1,94 @@
+<script lang="ts">
+  let items = [];
+</script>
+
+<div>
+  <h2>Incoming requests</h2>
+
+  <ol>
+    <li>
+      <button>
+        <span>9:38:15am</span>
+        <span class="tag">POST</span>
+      </button>
+    </li>
+
+    <li class="active">
+      <button>
+        <span>9:38:15am</span>
+        <span class="tag">POST</span>
+      </button>
+    </li>
+
+    <li>
+      <button>
+        <span>9:38:15am</span>
+        <span class="tag">POST</span>
+      </button>
+    </li>
+
+    <li>
+      <button>
+        <span>9:38:15am</span>
+        <span class="tag">POST</span>
+      </button>
+    </li>
+
+    {#each items as item}
+      <li>
+      </li>
+    {/each}
+
+  </ol>
+</div>
+
+<style>
+
+  h2 {
+    font-size: .7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: .75rem 1rem;
+    opacity: .4;
+    font-weight: 600;
+  }
+
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+  }
+
+  button {
+    font-size: .9rem;
+    width: 100%;
+    padding: 1rem;
+    background: transparent;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+
+    transition: all .2s;
+
+    border: 0 none;
+  }
+
+  button:hover {
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  li.active button {
+    background: rgba(0, 0, 0, 0.06);
+    font-weight: bold;
+  }
+
+  li:last-of-type button {
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+  }
+</style>
