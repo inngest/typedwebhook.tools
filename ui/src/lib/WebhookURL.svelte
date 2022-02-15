@@ -35,6 +35,10 @@
     background-size: 5.66px 5.66px;
   }
 
+  div:hover code {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  }
+
   p {
     opacity: 0.6;
   }
@@ -48,6 +52,7 @@
     cursor: pointer;
     border-radius: 3px;
     background: var(--bg-color);
+    transition: all .3s;
   }
   small { opacity: .4 }
 
