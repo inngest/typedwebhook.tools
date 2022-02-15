@@ -49,6 +49,9 @@ type Request struct {
 </script>
 
 <div class="request-data">
+  <h2>Request data</h2>
+  <p>Request received at 9:38am from <code>10.123.18.199</code></p>
+
   <div class="header-table">
     <div class="th">Header</div>
     <div class="th">Value</div>
@@ -58,29 +61,55 @@ type Request struct {
     {/each}
   </div>
 
-  <Tabs
-    tabs={[
-      { label: "Body", href: "#body", onClick: () => {} },
-      { label: "JSON", href: "#json", onClick: () => {} },
-      { label: "Types", href: "#types", onClick: () => {} },
-    ]}
-  />
-
-  <pre><code>{body}</code></pre>
+  <div class="body">
+    <Tabs
+      tabs={[
+        { label: "Body", href: "#body", onClick: () => {} },
+        { label: "JSON", href: "#json", onClick: () => {} },
+        { label: "Types", href: "#types", onClick: () => {} },
+      ]}
+    />
+    <pre><code>{body}</code></pre>
+  </div>
 </div>
 
 <style>
   .request-data {
-    margin: 1rem 0;
-    padding: 1rem 0;
+		padding: 1.5rem 5rem;
+    background: #fff;
   }
 
   .header-table {
     display: grid;
     grid-template-columns: auto 3fr;
     grid-template-rows: auto;
-    margin: 0 0 2rem;
+    margin: 2rem 0 2rem;
     font-family: var(--font-mono);
+    position: relative;
+  }
+
+  .header-table:before, .body:before {
+    font-family: var(--font-mono);
+    display: block;
+    position: absolute;
+    left: -67px;
+    top: 8px;
+    font-size: .65rem;
+    text-transform: uppercase;
+    opacity: .3;
+  }
+
+  .body {
+    position: relative;
+  }
+
+  .header-table:before {
+    content: "Headers";
+  }
+
+  .body:before {
+    content: "Body";
+    top: 10px;
   }
 
   .header-table div {

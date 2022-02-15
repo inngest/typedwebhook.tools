@@ -18,9 +18,6 @@
 
   <WebhookURL uuid="fdeb8ff6-211e-40a0-b008-8579be78587f" />
 
-  <h2>Request data</h2>
-  <p>Request received at 9:38am from <code>10.123.18.199</code></p>
-
   <RequestData
     headers={{
       "content-type": "application/json",
@@ -38,15 +35,19 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		padding: 1.5rem 3.5rem;
     margin: 0 1.5rem 0 0;
 		box-sizing: border-box;
     box-shadow: 0 0 3rem rgba(0, 0, 0, 0.04);
     border-radius: 3px;
 	}
 
+  h2 {
+    font-size: 1.3rem;
+  }
+
   h2 + p {
     opacity: .6;
+    font-size: .8rem;
   }
 
   h2 + p code {
