@@ -18,8 +18,6 @@
 
   $: index = parseInt($url?.pathname?.replace("/", ""), 10);
   $: data = $state.requests[$state.requests.length - index] || {};
-
-  console.log(data, index);
 </script>
 
 <svelte:head>

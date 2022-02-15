@@ -4,7 +4,7 @@
 
   export let path = "";
 
-  $: link = `${url.origin}${path}`;
+  $: link = `${$url.origin}${path}`;
 
   const onclick = async () => {
     try {
