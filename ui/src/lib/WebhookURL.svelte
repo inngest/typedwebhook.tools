@@ -5,20 +5,24 @@
 
   const onclick = async () => {
     try {
-      debugger;
-      console.log(url);
       await navigator?.clipboard?.writeText(url);
     } catch(e) {
-      console.log(e);
     }
   };
 
 </script>
 
-<div on:click={onclick}>
-  <p>Your unique webhook URL is</p>
-  <code>{url}</code>
-</div>
+{#if uuid === ""}
+  <div>
+    <p>Generating a fresh, unique webhook URL for you.</p>
+    <code>A new webhook testing URL is being created...</code>
+  </div>
+{:else}
+  <div on:click={onclick}>
+    <p>Your unique webhook URL is</p>
+    <code>{url}</code>
+  </div>
+{/if}
 
 <style>
 

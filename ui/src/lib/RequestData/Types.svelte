@@ -17,8 +17,6 @@
 
     return { cue, ts, schema };
   });
-
-  console.log(promise);
 </script>
 
 <div class="wrapper">
@@ -32,7 +30,7 @@
       </div>
     </div>
     <div>
-      <span>Cue type</span>
+      <span><a href="https://cuelang.org/" target="_blank">Cue type</a></span>
       <div class="type">
         <pre><code>{result.cue}</code></pre>
       </div>

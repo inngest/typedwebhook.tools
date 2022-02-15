@@ -1,45 +1,49 @@
 <script lang="ts">
+  import Loading from "$lib/Loading.svelte";
   let items = [];
 </script>
 
 <div>
-  <h2>Incoming requests</h2>
-
-  <ol>
-    <li>
-      <button>
-        <span>#4 9:38:15am</span>
-        <span class="tag">POST</span>
-      </button>
-    </li>
-
-    <li class="active">
-      <button>
-        <span>#3 9:38:15am</span>
-        <span class="tag">POST</span>
-      </button>
-    </li>
-
-    <li>
-      <button>
-        <span>#2 9:38:15am</span>
-        <span class="tag">POST</span>
-      </button>
-    </li>
-
-    <li>
-      <button>
-        <span>#1 9:38:15am</span>
-        <span class="tag">POST</span>
-      </button>
-    </li>
-
-    {#each items as item}
+  {#if items.length === 0}
+    <Loading text="Waiting for requests..." />
+  {:else}
+    <h2>Incoming requests</h2>
+    <ol>
       <li>
+        <button>
+          <span>#4 9:38:15am</span>
+          <span class="tag">POST</span>
+        </button>
       </li>
-    {/each}
 
-  </ol>
+      <li class="active">
+        <button>
+          <span>#3 9:38:15am</span>
+          <span class="tag">POST</span>
+        </button>
+      </li>
+
+      <li>
+        <button>
+          <span>#2 9:38:15am</span>
+          <span class="tag">POST</span>
+        </button>
+      </li>
+
+      <li>
+        <button>
+          <span>#1 9:38:15am</span>
+          <span class="tag">POST</span>
+        </button>
+      </li>
+
+      {#each items as item}
+        <li>
+        </li>
+      {/each}
+
+    </ol>
+  {/if}
 </div>
 
 <style>
