@@ -6,7 +6,7 @@
   };
 
   export let tabs: Tab[] = [];
-  const current = globalThis?.location?.hash || '';
+  export let current = '';
 </script>
 
 <ul>
