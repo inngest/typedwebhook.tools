@@ -1,3 +1,27 @@
+<script>
+  import url from '$lib/url'
+
+  export let path = "";
+  $: link = `${$url?.origin || ""}${path}`;
+
+  let now = new Date();
+  let at = now.toISOString();
+  let ts = now.valueOf();
+
+  const data = {
+    name: "Test event",
+    data: {
+      id: "1",
+      name: "Tester McTestFace",
+      by: "Inngest",
+      at,
+    },
+    user: {
+      email: "tester@example.com",
+    },
+    ts,
+  }
+</script>
 
 <hgroup>
   <h1>Typed webhook testing</h1>
@@ -5,7 +29,12 @@
 </hgroup>
 <div class="explainer">
   <p>Any requests sent to this URL will be logged instantly for <strong>testing webhooks and HTTP requests</strong>.  You can inspect the request headers and body, and <strong>automatically generate typescript types</strong>, cue schemas, and a JSON schema for the body.</p>
-  <p>When you send your first webhook we'll show your data here.</p>
+  {#if link === ""}
+    <p>When you send your first webhook we'll show your data here.</p>
+  {:else}
+    <p>When you send your first webhook we'll show your data here. Get started now:</p>
+    <code class="pre">curl {link} -X POST --data '{JSON.stringify(data)}'</code>
+  {/if}
 </div>
 
 <style>
@@ -22,10 +51,25 @@
   }
 
   .explainer {
-    max-width: 50rem;
     margin: 0 auto;
     text-align: center;
     padding: 0 0 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    max-width: 70%;
+  }
+
+  .explainer p {
+    max-width: 50rem;
+    text-align: center;
+  }
+
+  code {
+    font-size: .9rem;
   }
 
   .explainer strong {

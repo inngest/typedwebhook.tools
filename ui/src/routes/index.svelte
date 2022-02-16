@@ -14,8 +14,6 @@
   onMount(async () => {
     connect();
   });
-
-  console.log($state, $url);
 </script>
 
 <svelte:head>
@@ -25,7 +23,7 @@
 <RequestList items={$state.requests} />
 <main>
   <WebhookURL path={$state.url} />
-  <Explainer />
+  <Explainer url={$state.url} />
   <RequestData preview={$state.requests.length === 0} />
 </main>
 
