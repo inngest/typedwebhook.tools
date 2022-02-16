@@ -11,7 +11,7 @@
   const data = {
     name: "Test event",
     data: {
-      id: "1",
+      id: 1,
       name: "Tester McTestFace",
       by: "Inngest",
       at,
