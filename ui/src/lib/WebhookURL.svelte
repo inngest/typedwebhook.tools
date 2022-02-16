@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { toast } from '@zerodevx/svelte-toast'
   import url from '$lib/url'
   import state from '$lib/stores'
 
@@ -9,6 +10,7 @@
   const onclick = async () => {
     try {
       await navigator?.clipboard?.writeText(link);
+      toast.push('URL copied to clipboard');
     } catch(e) {
     }
   };

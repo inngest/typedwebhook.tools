@@ -8,7 +8,7 @@ import {
 } from "./urls"
 
 const DurableObjectIdName = "WebSocketSessions"
-const SessionTtl = 5 * 60 // TTL in seconds
+const SessionTtl = 30 * 60 // TTL in seconds
 
 export async function handleRequest(request: Request, env: Bindings) {
   const { SESSIONS, WEBSOCKETS } = env

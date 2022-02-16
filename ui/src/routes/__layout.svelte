@@ -1,6 +1,8 @@
 <script lang="ts">
 	import '../app.css';
+  import { SvelteToast } from '@zerodevx/svelte-toast'
 </script>
+
 
 <header>
   <a href="/" class="home">
@@ -20,12 +22,14 @@
 
   <div class="by">
     <span>a tool from</span>
-    <a href="https://www.inngest.com" class="inngest">
+    <a href="https://www.inngest.com/?utm_source=hooks" class="inngest" target="_blank">
       <img src="/inngest-blue.svg" alt="Inngest" height="25" />
       Event-driven serverless functions
     </a>
   </div>
 </footer>
+
+<SvelteToast />
 
 <style>
   header {
@@ -59,7 +63,7 @@
   .root {
     display: grid;
     grid-template-columns: 270px auto;
-    min-height: calc(100vh - 9rem);
+    min-height: calc(100vh - 11rem);
   }
 
 	footer {

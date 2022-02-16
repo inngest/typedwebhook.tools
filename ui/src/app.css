@@ -14,6 +14,10 @@
   --heading-color: rgba(0, 0, 0, 0.7);
   --text-color: #444444;
 
+  --toastBorderRadius: 4px;
+  --toastBackground: #23a282;
+  --toastMsgPadding: 0 1rem;
+
   font-family: var(--font);
 }
 
@@ -55,4 +59,12 @@ button:focus:not(:focus-visible) {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-mono);
+}
+
+._toastBar {
+  display: none !important;
+}
+
+._toastItem {
+  font-size: .9rem;
 }
