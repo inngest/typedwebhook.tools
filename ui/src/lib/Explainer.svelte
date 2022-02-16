@@ -29,7 +29,7 @@
 </hgroup>
 <div class="explainer">
   <p>Any requests sent to this URL will be logged instantly for <strong>testing webhooks and HTTP requests</strong>.  You can inspect the request headers and body, and <strong>automatically generate typescript types</strong>, cue schemas, and a JSON schema for the body.</p>
-  {#if link === ""}
+  {#if path === ""}
     <p>When you send your first webhook we'll show your data here.</p>
   {:else}
     <p>When you send your first webhook we'll show your data here. Get started now:</p>
