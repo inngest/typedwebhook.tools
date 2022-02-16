@@ -3,6 +3,12 @@
   import { SvelteToast } from '@zerodevx/svelte-toast'
 </script>
 
+<svelte:head>
+  <title>Typed Webhook Testing:  a tool to test webhooks and generate payload types</title>
+  <meta name="description" content="Instantly generate a free URL to test webhooks.  Inspect payloads, headers, and generate types from request data." />
+  <meta property="og:description" content="A tool to test webhooks and generate payload types.  Instantly test and inspect webhooks with a free, unique URL." />
+</svelte:head>
+
 
 <header>
   <a href="/" class="home">

@@ -16,10 +16,6 @@
   });
 </script>
 
-<svelte:head>
-	<title>Typed Webhook Testing</title>
-</svelte:head>
-
 <RequestList items={$state.requests} />
 <main>
   <WebhookURL path={$state.url} />
