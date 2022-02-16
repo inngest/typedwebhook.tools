@@ -34,7 +34,7 @@
       {#each items as item, n}
         <li class:active={(items.length - n) === index}>
           <a href="/{items.length - (n)}" on:click={onclick} data-n={items.length - (n)}>
-            <span>#{items.length - (n)} {new Date(item.ts).toLocaleString().split(", ")[1]}</span>
+            <span>#{items.length - (n)} {new Date(item.ts).toLocaleString().split(", ")[1] || ""}</span>
             <span class="tag">{item.method}</span>
           </a>
         </li>

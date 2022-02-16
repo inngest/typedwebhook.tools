@@ -34,7 +34,7 @@
   {#if preview}
     <p>Waiting for your first request...</p>
   {:else}
-    <p>Request received at 9:38am from <code>10.123.18.199</code></p>
+	  <p>Request received from <code>{headers["x-real-ip"]}</code></p>
   {/if}
 
   <div class="header-table">
