@@ -3,8 +3,11 @@
 </script>
 
 <header>
-  <img src="/webhook.svg" alt="Typed webhooks" />
-  <a href="/" class="home">Typed webhooks</a>
+  <a href="/" class="home">
+    <img src="/webhook.svg" alt="Typed webhooks" />
+    <b>Typed webhooks:</b>
+    <span>Test &amp; type webhooks</span>
+  </a>
 </header>
 
 <div class="root">
@@ -12,6 +15,16 @@
 </div>
 
 <footer>
+  <div>
+  </div>
+
+  <div class="by">
+    <span>a tool from</span>
+    <a href="https://www.inngest.com" class="inngest">
+      <img src="/inngest-blue.svg" alt="Inngest" height="25" />
+      Event-driven serverless functions
+    </a>
+  </div>
 </footer>
 
 <style>
@@ -28,7 +41,8 @@
   }
 
   .home {
-    font-weight: bold;
+    display: flex;
+    align-items: center;
     text-decoration: none;
     color: inherit;
     opacity: .6;
@@ -36,6 +50,10 @@
   }
   .home:hover {
     opacity: 1;
+  }
+  .home span {
+    margin-left: .75rem;
+    opacity: .7;
   }
 
   .root {
@@ -46,19 +64,38 @@
 
 	footer {
 		display: flex;
-		flex-direction: column;
-		justify-content: center;
+		flex-direction: row;
+		justify-content: space-between;
 		align-items: center;
-    height: 4rem;
+    height: 7rem;
+    padding: 0 2rem;
 	}
 
-	footer a {
-		font-weight: bold;
+	footer a, footer {
+    color: #2d3a59;
 	}
 
-	@media (min-width: 480px) {
-		footer {
-			padding: 40px 0;
-		}
-	}
+  .by {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .by span, .inngest {
+    font-size: .75rem;
+  }
+  .by span {
+    opacity: .6;
+  }
+
+  .inngest {
+    display: flex;
+    text-decoration: none;
+    flex-direction: column;
+    font-size: .75rem;
+    align-items: center;
+  }
+  .inngest img {
+    margin: .35rem 1rem 0;
+  }
 </style>
