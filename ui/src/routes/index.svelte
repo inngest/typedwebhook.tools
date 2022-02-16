@@ -43,25 +43,4 @@
     border-radius: 3px;
 	}
 
-  hgroup {
-    text-align: center;
-    padding: 4rem 0;
-  }
-
-  h2 {
-    font-size: 1.3rem;
-    font-weight: normal;
-    font-family: var(--font);
-    opacity: .65;
-  }
-
-  .explainer {
-    max-width: 50rem;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .explainer strong {
-    font-weight: 600;
-  }
 </style>
