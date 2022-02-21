@@ -8,7 +8,7 @@
 
   $: promise = wasm.init(() => {
     const cue = fromJSON(body);
-    const ts = toTS('#Event: ' + cue);
+    const ts: string = toTS('#Event: ' + cue);
 
     let schema = '{}';
     const schemas = toJSONSchema('#Event: ' + cue);
@@ -16,7 +16,7 @@
       schema = JSON.parse(schemas).All.Event;
     }
 
-    return { cue, ts, schema };
+    return { cue, ts, schema: JSON.stringify(schema, null, '  ') };
   });
 
   const copy = async (e) => {
@@ -25,28 +25,36 @@
       toast.push('Type copied to clipboard');
     } catch (e) {}
   };
+  import Highlight from 'svelte-highlight';
+  import typescript from 'svelte-highlight/src/languages/typescript';
+  import json from 'svelte-highlight/src/languages/json';
+  import { githubDark } from 'svelte-highlight/src/styles';
 </script>
+
+<svelte:head>
+  {@html githubDark}
+</svelte:head>
 
 <div class="wrapper">
   {#await promise}
     <p>Generating types...</p>
-  {:then result}
+  {:then { cue, ts, schema }}
     <div>
       <span>Typescript</span>
       <div class="type" on:click={copy}>
-        <pre><code>{result.ts}</code></pre>
+        <Highlight language={typescript} code={ts} />
       </div>
     </div>
     <div>
       <span><a href="https://cuelang.org/" target="_blank">Cue type</a></span>
       <div class="type" on:click={copy}>
-        <pre><code>{result.cue}</code></pre>
+        <Highlight language={typescript} code={cue} />
       </div>
     </div>
     <div>
       <span>JSON Schema</span>
       <div class="type" on:click={copy}>
-        <JsonView json={result.schema} />
+        <Highlight language={json} code={schema} />
       </div>
     </div>
   {/await}
@@ -62,11 +70,16 @@
     background: rgba(0, 0, 0, 0.03);
     padding: 1rem;
     align-self: stretch;
-    height: 100%;
+    height: calc(100% - 2rem);
   }
 
   .wrapper div + div .type {
     border-left: 1px solid #ddd;
+  }
+
+  a,
+  a:visited {
+    color: var(--text-color);
   }
 
   .wrapper,

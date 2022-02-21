@@ -34,7 +34,7 @@
       {#each items as item, n}
         <li class:active={items.length - n === index}>
           <a href="/{items.length - n}" on:click={onclick} data-n={items.length - n}>
-            <span
+            <span class="request-timestamp"
               >#{items.length - n} {new Date(item.ts).toLocaleString().split(', ')[1] || ''}</span
             >
             <span class="tag">{item.method}</span>
@@ -51,7 +51,7 @@
     letter-spacing: 1px;
     text-transform: uppercase;
     margin: 0.75rem 1rem;
-    opacity: 0.4;
+    color: var(--text-color-light);
     font-weight: 600;
   }
 
@@ -71,6 +71,7 @@
     justify-content: space-between;
     align-items: center;
     color: inherit;
+    text-decoration: none;
 
     transition: all 0.2s;
 
@@ -78,15 +79,24 @@
   }
 
   a:hover {
-    background: rgba(0, 0, 0, 0.03);
+    background: rgba(255, 255, 255, 0.1);
   }
 
   li.active a {
-    background: rgba(0, 0, 0, 0.06);
+    background: rgba(255, 255, 255, 0.15);
     font-weight: bold;
   }
+  /* @media (prefers-color-scheme: light) {
+    a:hover {
+      background: rgba(0, 0, 0, 0.03);
+    }
+    li.active a {
+      background: rgba(0, 0, 0, 0.03);
+    }
+  } */
 
-  li:last-of-type button {
+  .request-timestamp {
+    text-decoration: underline;
   }
 
   .tag {
@@ -96,5 +106,6 @@
     border-radius: 3px;
     font-size: 0.8rem;
     font-weight: 600;
+    text-decoration: none;
   }
 </style>

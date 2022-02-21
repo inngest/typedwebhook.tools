@@ -1,8 +1,9 @@
-const host = globalThis.location?.host.replace(/:\d+/, '');
+// const host = globalThis.location?.host.replace(/:\d+/, '');
+const host = 'localhost:8787';
 const wsProtocol = globalThis.location?.protocol === 'https:' ? 'wss:' : 'ws:';
 
 export const createWebhookURL = async () => {
-  const res = await fetch('/new_webhook');
+  const res = await fetch('http://' + host + '/new_webhook');
   return await res.json();
 };
 

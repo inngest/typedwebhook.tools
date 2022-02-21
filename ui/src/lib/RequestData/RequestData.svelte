@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { JsonView } from '@zerodevx/svelte-json-view';
+  import Highlight from 'svelte-highlight';
+  import { json as jsonLanguage } from 'svelte-highlight/src/languages';
+  import { githubDark } from 'svelte-highlight/src/styles';
   import Tabs from '$lib/Tabs.svelte';
   import Types from './Types.svelte';
   import url from '$lib/url';
@@ -20,7 +22,8 @@
 
   $: [json, isJSON] = (() => {
     try {
-      return [JSON.parse(body), true];
+      console.log('Parsing JSON!', JSON.parse(body));
+      return [JSON.stringify(JSON.parse(body), null, '  '), true];
     } catch (e) {
       return [undefined, false];
     }
@@ -30,6 +33,10 @@
     $: size = body.length;
   }
 </script>
+
+<svelte:head>
+  {@html githubDark}
+</svelte:head>
 
 <div class="request-data" class:preview>
   <h2>Request data</h2>
@@ -58,42 +65,44 @@
       ]}
     />
 
-    {#if ($url?.hash || '#body') === '#body'}
-      <code class="pre">{body || 'No data'}</code>
-    {/if}
-
-    {#if $url?.hash === '#json'}
-      {#if !isJSON}
-        <p class="no-json">This request is not valid JSON 😢</p>
-      {:else}
-        <div class="json">
-          <JsonView {json} />
-        </div>
+    <div class="body-content">
+      {#if ($url?.hash || '#body') === '#body'}
+        <code class="pre">{body || 'No data'}</code>
       {/if}
-    {/if}
 
-    {#if $url?.hash === '#types'}
-      {#if !isJSON}
-        <p class="no-json">
-          This request is not valid JSON, so we can't make types for this body 😢
-        </p>
-      {:else}
-        <div class="json">
-          <Types {body} />
-        </div>
+      {#if $url?.hash === '#json'}
+        {#if !isJSON}
+          <p class="no-json">This request is not valid JSON 😢</p>
+        {:else}
+          <div class="json">
+            <Highlight language={jsonLanguage} code={json} />
+          </div>
+        {/if}
       {/if}
-    {/if}
+
+      {#if $url?.hash === '#types'}
+        {#if !isJSON}
+          <p class="no-json">
+            This request is not valid JSON, so we can't make types for this body 😢
+          </p>
+        {:else}
+          <div class="json">
+            <Types {body} />
+          </div>
+        {/if}
+      {/if}
+    </div>
   </div>
 </div>
 
 <style>
   .preview {
-    opacity: 0.6;
+    opacity: 0.8;
   }
 
   .request-data {
     padding: 1.5rem 5rem;
-    background: #fff;
+    background: var(--main-bg);
   }
 
   .header-table {
@@ -114,13 +123,14 @@
     top: 8px;
     font-size: 0.65rem;
     text-transform: uppercase;
-    opacity: 0.3;
   }
 
   .body {
     position: relative;
   }
-
+  .body-content {
+    margin-top: 1rem;
+  }
   .header-table:before {
     content: 'Headers';
   }
@@ -132,7 +142,7 @@
 
   .header-table div {
     padding: 0.25rem 0;
-    border-bottom: 1px solid #f6f6f6;
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
   }
@@ -157,12 +167,14 @@
 
   .body code {
     display: block;
-    margin-top: 2rem;
   }
 
   .json {
     font-family: var(--font-mono);
-    padding: 1rem 0;
+    background-color: var(--code-bg);
+    padding: 1rem;
+    margin: 0 -0.5rem; /* match pre */
+    border-radius: var(--border-radius);
   }
 
   .th:first-of-type {
@@ -170,7 +182,7 @@
   }
 
   .no-json {
-    margin: 2rem 0;
+    /* margin: 2rem 0; */
     text-align: center;
   }
 </style>

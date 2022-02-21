@@ -18,7 +18,7 @@
 <header>
   <a href="/" class="home">
     <img src="/webhook.svg" alt="Typed webhooks" aria-label="Typed webhooks logo" />
-    <b>Typed webhooks:</b>
+    <b>TypedWebhook.tools</b>
     <span>Test &amp; type webhooks</span>
   </a>
 
@@ -75,7 +75,6 @@
     align-items: center;
     text-decoration: none;
     color: inherit;
-    opacity: 0.6;
     transition: all 0.3s;
   }
   .home:hover {
@@ -83,7 +82,6 @@
   }
   .home span {
     margin-left: 0.75rem;
-    opacity: 0.7;
   }
 
   .root {
@@ -103,7 +101,7 @@
 
   footer a,
   footer {
-    color: #2d3a59;
+    color: var(--footer-text-color);
   }
 
   .by {

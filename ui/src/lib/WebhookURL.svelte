@@ -23,7 +23,7 @@
 {:else}
   <div on:click={onclick}>
     <p>Your unique webhook URL is (click to copy):</p>
-    <code class="green">{link}</code>
+    <code class="url">{link}</code>
   </div>
 {/if}
 
@@ -38,29 +38,26 @@
 
     background-image: linear-gradient(
       135deg,
-      #f7f6f2 12.5%,
-      #ffffff 12.5%,
-      #ffffff 50%,
-      #f7f6f2 50%,
-      #f7f6f2 62.5%,
-      #ffffff 62.5%,
-      #ffffff 100%
+      var(--bg-color) 12.5%,
+      var(--main-bg) 12.5%,
+      var(--main-bg) 50%,
+      var(--bg-color) 50%,
+      var(--bg-color) 62.5%,
+      var(--main-bg) 62.5%,
+      var(--main-bg) 100%
     );
     background-size: 5.66px 5.66px;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
   }
 
   div:hover code {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   }
 
-  p {
-    opacity: 0.6;
-  }
-
   code {
     display: inline-block;
-    margin: 0.5rem 4px 0.35rem;
-    border: 1px solid #eee;
+    margin: 0.5rem 4px 0;
+    /* border: 1px solid #eee; */
     padding: 4px 12px;
     font-weight: 600;
     cursor: pointer;
@@ -68,10 +65,9 @@
     background: var(--bg-color);
     transition: all 0.3s;
   }
-  small {
-    opacity: 0.4;
-  }
-  .green {
-    background: #daf4da;
+
+  .url {
+    background: var(--primary-color);
+    color: var(--color-white);
   }
 </style>
