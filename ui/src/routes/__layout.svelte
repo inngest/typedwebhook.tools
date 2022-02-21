@@ -17,10 +17,14 @@
 
 <header>
   <a href="/" class="home">
-    <img src="/webhook.svg" alt="Typed webhooks" />
+    <img src="/webhook.svg" alt="Typed webhooks" aria-label="Typed webhooks logo" />
     <b>Typed webhooks:</b>
     <span>Test &amp; type webhooks</span>
   </a>
+
+  <div>
+    <a class="github-button" href="https://github.com/inngest/typedwebhook.tools" data-icon="octicon-star" data-size="large" aria-label="Star inngest/typedwebhook.tools on GitHub">Star on GitHub</a>
+  </div>
 </header>
 
 <div class="root">
@@ -53,6 +57,7 @@
     padding: 1.5rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
 
   header img {
