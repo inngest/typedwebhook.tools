@@ -23,7 +23,13 @@
   </a>
 
   <div>
-    <a class="github-button" href="https://github.com/inngest/typedwebhook.tools" data-icon="octicon-star" data-size="large" aria-label="Star inngest/typedwebhook.tools on GitHub">Star on GitHub</a>
+    <a
+      class="github-button"
+      href="https://github.com/inngest/typedwebhook.tools"
+      data-icon="octicon-star"
+      data-size="large"
+      aria-label="Star inngest/typedwebhook.tools on GitHub">Star on GitHub</a
+    >
   </div>
 </header>
 
@@ -34,9 +40,8 @@
 <footer>
   <div class="disclaimer">
     <p>
-      <b>Only this browser tab can read webhooks sent to your URL</b>. No personal data is stored
-      or used in this service. Your webhook endpoint lasts for 30m, is secure, and
-      unique to you.
+      <b>Only this browser tab can read webhooks sent to your URL</b>. No personal data is stored or
+      used in this service. Your webhook endpoint lasts for 30m, is secure, and unique to you.
     </p>
   </div>
 
