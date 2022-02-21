@@ -1,14 +1,19 @@
 <script lang="ts">
-	import '../app.css';
-  import { SvelteToast } from '@zerodevx/svelte-toast'
+  import '../app.css';
+  import { SvelteToast } from '@zerodevx/svelte-toast';
 </script>
 
 <svelte:head>
-  <title>Typed Webhook Testing:  a tool to test webhooks and generate payload types</title>
-  <meta name="description" content="Instantly generate a free URL to test webhooks.  Inspect payloads, headers, and generate types from request data." />
-  <meta property="og:description" content="A tool to test webhooks and generate payload types.  Instantly test and inspect webhooks with a free, unique URL." />
+  <title>Typed Webhook Testing: a tool to test webhooks and generate payload types</title>
+  <meta
+    name="description"
+    content="Instantly generate a free URL to test webhooks.  Inspect payloads, headers, and generate types from request data."
+  />
+  <meta
+    property="og:description"
+    content="A tool to test webhooks and generate payload types.  Instantly test and inspect webhooks with a free, unique URL."
+  />
 </svelte:head>
-
 
 <header>
   <a href="/" class="home">
@@ -52,7 +57,7 @@
 
   header img {
     height: 2rem;
-    margin: 0 .5rem 0 0;
+    margin: 0 0.5rem 0 0;
   }
 
   .home {
@@ -60,15 +65,15 @@
     align-items: center;
     text-decoration: none;
     color: inherit;
-    opacity: .6;
-    transition: all .3s;
+    opacity: 0.6;
+    transition: all 0.3s;
   }
   .home:hover {
     opacity: 1;
   }
   .home span {
-    margin-left: .75rem;
-    opacity: .7;
+    margin-left: 0.75rem;
+    opacity: 0.7;
   }
 
   .root {
@@ -86,9 +91,10 @@
     padding: 0 2rem;
   }
 
-	footer a, footer {
+  footer a,
+  footer {
     color: #2d3a59;
-	}
+  }
 
   .by {
     display: flex;
@@ -96,22 +102,23 @@
     align-items: center;
   }
 
-  .by span, .inngest {
-    font-size: .75rem;
+  .by span,
+  .inngest {
+    font-size: 0.75rem;
   }
   .by span {
-    opacity: .6;
+    opacity: 0.6;
   }
 
   .inngest {
     display: flex;
     text-decoration: none;
     flex-direction: column;
-    font-size: .75rem;
+    font-size: 0.75rem;
     align-items: center;
   }
   .inngest img {
-    margin: .35rem 1rem 0;
+    margin: 0.35rem 1rem 0;
   }
 
   .disclaimer {

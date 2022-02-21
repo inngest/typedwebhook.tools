@@ -13,10 +13,7 @@ export async function init(after?: () => any) {
   if (loaded || !global.Go) return;
 
   const go = new global.Go();
-  let result = await WebAssembly.instantiateStreaming(
-    fetch("/wasm/types.wasm"),
-    go.importObject
-  );
+  let result = await WebAssembly.instantiateStreaming(fetch('/wasm/types.wasm'), go.importObject);
   go.run(result.instance);
 
   if (after) {

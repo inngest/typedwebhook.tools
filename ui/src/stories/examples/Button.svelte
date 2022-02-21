@@ -37,6 +37,7 @@
   type="button"
   class={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
   {style}
-  on:click={onClick}>
+  on:click={onClick}
+>
   {label}
 </button>

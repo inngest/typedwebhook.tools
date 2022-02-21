@@ -9,12 +9,11 @@
 </script>
 
 <ul>
-
-    {#each tabs as tab}
-      <li class:selected="{current === tab.href}">
-        <a href={tab.href}>{tab.label}</a>
-      </li>
-    {/each}
+  {#each tabs as tab}
+    <li class:selected={current === tab.href}>
+      <a href={tab.href}>{tab.label}</a>
+    </li>
+  {/each}
 </ul>
 
 <style>
@@ -36,5 +35,4 @@
   li.selected {
     font-weight: bold;
   }
-
 </style>
