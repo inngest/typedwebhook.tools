@@ -1,5 +1,5 @@
 {
-  "name": "webhook-typer",
+  "name": "typedwebhook.tools",
   "version": "1.0.0",
   "description": "A service that allows you to inspect the types of webhook payloads",
   "type": "module",
@@ -12,7 +12,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "devDependencies": {
     "@cloudflare/workers-types": "^3.1.1",
     "@types/jest": "^27.0.2",
