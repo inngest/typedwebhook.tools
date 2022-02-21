@@ -23,7 +23,12 @@
 </div>
 
 <footer>
-  <div>
+  <div class="disclaimer">
+    <p>
+      <b>Only this browser tab can read webhooks sent to your URL</b>. No personal data is stored
+      or used in this service. Your webhook endpoint lasts for 30m, is secure, and
+      unique to you.
+    </p>
   </div>
 
   <div class="by">
@@ -72,14 +77,14 @@
     min-height: calc(100vh - 11rem);
   }
 
-	footer {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-    height: 7rem;
+  footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 7rem;
     padding: 0 2rem;
-	}
+  }
 
 	footer a, footer {
     color: #2d3a59;
@@ -107,5 +112,12 @@
   }
   .inngest img {
     margin: .35rem 1rem 0;
+  }
+
+  .disclaimer {
+    padding: 1rem 0;
+    font-size: 0.8rem;
+    max-width: 35vw;
+    opacity: 0.5;
   }
 </style>
