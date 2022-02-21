@@ -24,6 +24,7 @@
 </script>
 
 <hgroup>
+  <img src="/webhook-color.svg" alt="Typed webhooks" />
   <h1>Typed webhook testing</h1>
   <h2>A webhook testing tool for checking payloads, with automatic type generation</h2>
 </hgroup>
@@ -45,8 +46,17 @@
 
 <style>
   hgroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     padding: 3rem 0 2rem;
+  }
+
+  hgroup img {
+    max-height: 8vh;
+    margin: 0 0 1rem;
+    border-radius: 100%;
   }
 
   h2 {
