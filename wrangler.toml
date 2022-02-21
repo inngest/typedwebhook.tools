@@ -1,5 +1,5 @@
 name = "webhook-typer"
-vars = { ENVIRONMENT = "production" }
+vars = { ENVIRONMENT = "production", INNGEST_KEY = "H8OEOaHLxlxyVudcGZVxSwudSPx6CbKOLKuf2qSnwtRHcBeJWWEqPY5fX-gdizSiWY1OZCmrH_9z9_nzlLC74A" }
 type = "javascript"
 
 account_id = ""
@@ -37,9 +37,6 @@ main = "./index.mjs"
 
 [miniflare]
 durable_objects_persist = true
-
-[vars]
-INNGEST_KEY = ""
 
 [env.staging]
 name = "webhook-typer-staging"

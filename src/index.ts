@@ -46,7 +46,7 @@ export async function handleRequest(request: Request, env: Bindings) {
     const id: string = uuid();
     const token: string = uuid();
     await SESSIONS.put(id, token, { expirationTtl: SessionTtl })
-    notify("typedwebhook.webhook.created");
+    await notify("typedwebhook.webhook.created");
     return new Response(JSON.stringify({ id, token, url: `/webhook/${id}` }), {
       status: 200,
       headers: {
@@ -71,7 +71,7 @@ const handleWebhook = async (request: Request, env: Bindings, params: { id: stri
 
   const objId = WEBSOCKETS.idFromName(DurableObjectIdName)
   const stub = WEBSOCKETS.get(objId)
-  notify("typedwebhook.event.created");
+  await notify("typedwebhook.event.created");
   return await stub.fetch(request)
 }
 
@@ -79,25 +79,26 @@ const worker: ExportedHandler<Bindings> = { fetch: handleRequest }
 
 // notify sends an event with zero data except for a ref method (no IP, no UUIDs)
 // to notify that a webhook has been created.
-const notify = (name: string, ref?: string) => {
-  if (!INNGEST_KEY) {
-    return;
-  }
-
+const notify = async (name: string) => {
   const body = JSON.stringify({
     name,
-    // We don't want to store any data here in our notification, except a
-    // referral.  We're only signalling that something happened;  nothing
+    // We don't want to store any data here in our notification.
+    //  We're only signalling that something happened;  nothing
     // personal must ever be sent.
-    data: { ref },
+    data: {
+      at: new Date().toISOString(),
+    },
     ts: new Date().valueOf(),
     v: "2022-02-21.01",
   });
 
-  fetch(body, {
-    method: "POST",
-    url: "https://inn.gs/e/" + INNGEST_KEY,
-  });
+  try {
+    const url = "https://inn.gs/e/" + (process.env.INNGEST_KEY);
+    await fetch(url, {
+      method: "POST",
+      body,
+    });
+  } catch(e) {}
 }
 
 // Make sure we export the Counter Durable Object class
