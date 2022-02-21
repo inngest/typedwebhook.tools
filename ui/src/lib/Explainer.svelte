@@ -1,26 +1,26 @@
 <script>
-  import url from '$lib/url'
+  import url from '$lib/url';
 
-  export let path = "";
-  $: link = `${$url?.origin || ""}${path}`;
+  export let path = '';
+  $: link = `${$url?.origin || ''}${path}`;
 
   let now = new Date();
   let at = now.toISOString();
   let ts = now.valueOf();
 
   const data = {
-    name: "Test event",
+    name: 'Test event',
     data: {
       id: 1,
-      name: "Tester McTestFace",
-      by: "Inngest",
-      at,
+      name: 'Tester McTestFace',
+      by: 'Inngest',
+      at
     },
     user: {
-      email: "tester@example.com",
+      email: 'tester@example.com'
     },
-    ts,
-  }
+    ts
+  };
 </script>
 
 <hgroup>
@@ -28,8 +28,14 @@
   <h2>A webhook testing tool for checking payloads, with automatic type generation</h2>
 </hgroup>
 <div class="explainer">
-  <p>Any requests sent to this URL will be logged instantly for <strong>testing webhooks and HTTP requests</strong>.  You can inspect the request headers and body, and <strong>automatically generate typescript types</strong>, cue schemas, and a JSON schema for the body.</p>
-  {#if path === ""}
+  <p>
+    Any requests sent to this URL will be logged instantly for <strong
+      >testing webhooks and HTTP requests</strong
+    >. You can inspect the request headers and body, and
+    <strong>automatically generate typescript types</strong>, cue schemas, and a JSON schema for the
+    body.
+  </p>
+  {#if path === ''}
     <p>When you send your first webhook we'll show your data here.</p>
   {:else}
     <p>When you send your first webhook we'll show your data here. Get started now:</p>
@@ -47,7 +53,7 @@
     font-size: 1.3rem;
     font-weight: normal;
     font-family: var(--font);
-    opacity: .65;
+    opacity: 0.65;
   }
 
   .explainer {
@@ -69,7 +75,7 @@
   }
 
   code {
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
 
   .explainer strong {

@@ -1,23 +1,21 @@
 <script lang="ts">
-  import { toast } from '@zerodevx/svelte-toast'
-  import url from '$lib/url'
-  import state from '$lib/stores'
+  import { toast } from '@zerodevx/svelte-toast';
+  import url from '$lib/url';
+  import state from '$lib/stores';
 
-  export let path = "";
+  export let path = '';
 
-  $: link = `${$url?.origin || ""}${path}`;
+  $: link = `${$url?.origin || ''}${path}`;
 
   const onclick = async () => {
     try {
       await navigator?.clipboard?.writeText(link);
       toast.push('URL copied to clipboard');
-    } catch(e) {
-    }
+    } catch (e) {}
   };
-
 </script>
 
-{#if link === ""}
+{#if link === ''}
   <div>
     <p>Generating a fresh, unique webhook URL for you.</p>
     <code>A new webhook testing URL is being created for you...</code>
@@ -30,7 +28,6 @@
 {/if}
 
 <style>
-
   div {
     padding: 1.5rem;
     margin: 0 0 1rem;
@@ -39,7 +36,16 @@
     align-items: center;
     cursor: pointer;
 
-    background-image: linear-gradient(135deg, #f7f6f2 12.50%, #ffffff 12.50%, #ffffff 50%, #f7f6f2 50%, #f7f6f2 62.50%, #ffffff 62.50%, #ffffff 100%);
+    background-image: linear-gradient(
+      135deg,
+      #f7f6f2 12.5%,
+      #ffffff 12.5%,
+      #ffffff 50%,
+      #f7f6f2 50%,
+      #f7f6f2 62.5%,
+      #ffffff 62.5%,
+      #ffffff 100%
+    );
     background-size: 5.66px 5.66px;
   }
 
@@ -60,12 +66,12 @@
     cursor: pointer;
     border-radius: 3px;
     background: var(--bg-color);
-    transition: all .3s;
+    transition: all 0.3s;
   }
-  small { opacity: .4 }
+  small {
+    opacity: 0.4;
+  }
   .green {
     background: #daf4da;
   }
-
 </style>
-

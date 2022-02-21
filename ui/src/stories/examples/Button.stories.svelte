@@ -1,6 +1,6 @@
 <script>
-  import { Meta, Template, Story } from "@storybook/addon-svelte-csf";
-  import Button from "./Button.svelte";
+  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
+  import Button from './Button.svelte';
 </script>
 
 <!-- More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export -->
@@ -9,14 +9,14 @@
   title="Example/Button"
   component={Button}
   argTypes={{
-    backgroundColor: { control: "color" },
-    label: { control: "text" },
-    onClick: { action: "onClick" },
-    primary: { control: "boolean" },
+    backgroundColor: { control: 'color' },
+    label: { control: 'text' },
+    onClick: { action: 'onClick' },
+    primary: { control: 'boolean' },
     size: {
       control: { type: 'select' },
-      options: ['small', 'medium', 'large'],
-    },
+      options: ['small', 'medium', 'large']
+    }
   }}
 />
 
@@ -30,28 +30,28 @@
   name="Primary"
   args={{
     primary: true,
-    label: "Button",
+    label: 'Button'
   }}
 />
 
 <Story
   name="Secondary"
   args={{
-    label: "Button",
+    label: 'Button'
   }}
 />
 <Story
   name="Large"
   args={{
-    size: "large",
-    label: "Button",
+    size: 'large',
+    label: 'Button'
   }}
 />
 
 <Story
   name="Small"
   args={{
-    size: "small",
-    label: "Button",
+    size: 'small',
+    label: 'Button'
   }}
 />

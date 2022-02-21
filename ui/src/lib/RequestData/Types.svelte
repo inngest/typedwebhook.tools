@@ -1,18 +1,18 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-	import { JsonView } from '@zerodevx/svelte-json-view'
-  import * as wasm from '$lib/wasm'
+  import { JsonView } from '@zerodevx/svelte-json-view';
+  import * as wasm from '$lib/wasm';
 
   export let body = '';
 
   $: promise = wasm.init(() => {
     const cue = fromJSON(body);
-    const ts = toTS("#Event: " + cue);
+    const ts = toTS('#Event: ' + cue);
 
-    let schema = "{}";
-    const schemas = toJSONSchema("#Event: " + cue);
-    if (schemas.indexOf("error") === -1) {
-      schema = JSON.parse(schemas).All.Event
+    let schema = '{}';
+    const schemas = toJSONSchema('#Event: ' + cue);
+    if (schemas.indexOf('error') === -1) {
+      schema = JSON.parse(schemas).All.Event;
     }
 
     return { cue, ts, schema };
@@ -61,8 +61,9 @@
     border-left: 1px solid #ddd;
   }
 
-  .wrapper, pre {
-    font-size: .8rem;
+  .wrapper,
+  pre {
+    font-size: 0.8rem;
   }
 
   pre {
@@ -76,8 +77,7 @@
   .wrapper > div > span {
     display: block;
     text-transform: uppercase;
-    font-size: .7rem;
-    margin: .5rem 0 .35rem;
+    font-size: 0.7rem;
+    margin: 0.5rem 0 0.35rem;
   }
-
 </style>
