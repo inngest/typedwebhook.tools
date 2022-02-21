@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { JsonView } from '@zerodevx/svelte-json-view';
+  import { toast } from '@zerodevx/svelte-toast';
   import * as wasm from '$lib/wasm';
 
   export let body = '';
@@ -17,6 +18,13 @@
 
     return { cue, ts, schema };
   });
+
+  const copy = async (e) => {
+    try {
+      await navigator?.clipboard?.writeText(e.target.innerText);
+      toast.push('Type copied to clipboard');
+    } catch (e) {}
+  };
 </script>
 
 <div class="wrapper">
@@ -25,19 +33,19 @@
   {:then result}
     <div>
       <span>Typescript</span>
-      <div class="type">
+      <div class="type" on:click={copy}>
         <pre><code>{result.ts}</code></pre>
       </div>
     </div>
     <div>
       <span><a href="https://cuelang.org/" target="_blank">Cue type</a></span>
-      <div class="type">
+      <div class="type" on:click={copy}>
         <pre><code>{result.cue}</code></pre>
       </div>
     </div>
     <div>
       <span>JSON Schema</span>
-      <div class="type">
+      <div class="type" on:click={copy}>
         <JsonView json={result.schema} />
       </div>
     </div>
