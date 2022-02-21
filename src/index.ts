@@ -1,6 +1,5 @@
 import { v4 as uuid } from "uuid"
 
-import { buildResponse } from "./response"
 import {
   parseWebhookPath,
   parseWebsocketPath,
@@ -15,16 +14,8 @@ export async function handleRequest(request: Request, env: Bindings) {
 
   // Handle any webhook endpoint requests checking
   const webhookURLParams = parseWebhookPath(request.url)
-  if (webhookURLParams) {
-    // Check if the webhook is active
-    const { id } = webhookURLParams
-    const value = await SESSIONS.get(id, { cacheTtl: SessionTtl })
-    if (!value) {
-      return new Response("Not Found", { status: 404 })
-    }
-    const objId = WEBSOCKETS.idFromName(DurableObjectIdName)
-    const stub = WEBSOCKETS.get(objId)
-    return await stub.fetch(request)
+  if (webhookURLParams && !!webhookURLParams.id) {
+    return await handleWebhook(request, env, webhookURLParams as { id: string });
   }
 
   // Handle websocket connection requests
@@ -34,8 +25,11 @@ export async function handleRequest(request: Request, env: Bindings) {
     if (!websocketURLParams) {
       return new Response("Bad request", { status: 400 })
     }
-    const { id, token } = websocketURLParams
 
+    const { id, token } = websocketURLParams;
+
+    // Ensure that the shared secret matches.  This keeps webhooks private and secure
+    // for their lifetime.
     const value = await SESSIONS.get(id, { cacheTtl: SessionTtl })
     if (value !== token) {
       return new Response("Unauthorized", { status: 401 })
@@ -46,11 +40,13 @@ export async function handleRequest(request: Request, env: Bindings) {
     return await stub.fetch(request)
   }
 
-  // Handle get new webhook URL
   if (isStartSessionPath(request.url)) {
-    const id: string = uuid()
-    const token: string = uuid()
+    // Create a new webhook with a shared secret.  This secret must be used to
+    // retrieve webhook payloads for the webhook's lifetime.
+    const id: string = uuid();
+    const token: string = uuid();
     await SESSIONS.put(id, token, { expirationTtl: SessionTtl })
+    notify("typedwebhook.webhook.created");
     return new Response(JSON.stringify({ id, token, url: `/webhook/${id}` }), {
       status: 200,
       headers: {
@@ -60,10 +56,49 @@ export async function handleRequest(request: Request, env: Bindings) {
     })
   }
 
-  return await buildResponse(request)
+  return new Response("Not found", { status: 404 });
+}
+
+const handleWebhook = async (request: Request, env: Bindings, params: { id: string }) => {
+  const { SESSIONS, WEBSOCKETS } = env;
+  const { id } = params
+
+  // Ensure that the webhook is active
+  const value = await SESSIONS.get(id, { cacheTtl: SessionTtl })
+  if (!value) {
+    return new Response("Not Found", { status: 404 })
+  }
+
+  const objId = WEBSOCKETS.idFromName(DurableObjectIdName)
+  const stub = WEBSOCKETS.get(objId)
+  notify("typedwebhook.event.created");
+  return await stub.fetch(request)
 }
 
 const worker: ExportedHandler<Bindings> = { fetch: handleRequest }
+
+// notify sends an event with zero data except for a ref method (no IP, no UUIDs)
+// to notify that a webhook has been created.
+const notify = (name: string, ref?: string) => {
+  if (!INNGEST_KEY) {
+    return;
+  }
+
+  const body = JSON.stringify({
+    name,
+    // We don't want to store any data here in our notification, except a
+    // referral.  We're only signalling that something happened;  nothing
+    // personal must ever be sent.
+    data: { ref },
+    ts: new Date().valueOf(),
+    v: "2022-02-21.01",
+  });
+
+  fetch(body, {
+    method: "POST",
+    url: "https://inn.gs/e/" + INNGEST_KEY,
+  });
+}
 
 // Make sure we export the Counter Durable Object class
 export { WebSocketStore } from "./webSocketStore"

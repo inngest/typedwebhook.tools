@@ -38,6 +38,9 @@ main = "./index.mjs"
 [miniflare]
 durable_objects_persist = true
 
+[vars]
+INNGEST_KEY = ""
+
 [env.staging]
 name = "webhook-typer-staging"
 workers_dev = true
