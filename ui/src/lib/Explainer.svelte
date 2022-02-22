@@ -2,7 +2,7 @@
   import url from '$lib/url';
 
   export let path = '';
-  $: link = `${$url?.origin || ''}${path}`;
+  $: link = `${$url?.origin.replace(/:\d+/, ':8787') || ''}${path}`;
 
   let now = new Date();
   let at = now.toISOString();

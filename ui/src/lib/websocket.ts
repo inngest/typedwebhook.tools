@@ -1,8 +1,10 @@
-const host = globalThis.location?.host.replace(/:\d+/, '');
-const wsProtocol = globalThis.location?.protocol === 'https:' ? 'wss:' : 'ws:';
+// Use 8787 for local development
+const host = globalThis.location?.host.replace(/:\d+/, ':8787');
+const protocol = globalThis.location?.protocol || 'http:';
+const wsProtocol = protocol === 'https:' ? 'wss:' : 'ws:';
 
 export const createWebhookURL = async () => {
-  const res = await fetch(host + '/new_webhook');
+  const res = await fetch(protocol + '//' + host + '/new_webhook');
   return await res.json();
 };
 

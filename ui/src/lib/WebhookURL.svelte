@@ -5,7 +5,7 @@
 
   export let path = '';
 
-  $: link = `${$url?.origin || ''}${path}`;
+  $: link = `${$url?.origin.replace(/:\d+/, ':8787') || ''}${path}`;
 
   const onclick = async () => {
     try {
