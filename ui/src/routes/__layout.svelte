@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-  <title>Typed Webhook Testing: a tool to test webhooks and generate payload types</title>
+  <title>TypedWebhook.tools: a tool to test webhooks and generate payload types</title>
   <meta
     name="description"
     content="Instantly generate a free URL to test webhooks.  Inspect payloads, headers, and generate types from request data."
