@@ -48,7 +48,7 @@
 
   <div class="by">
     <span>a tool from</span>
-    <a href="https://www.inngest.com/?utm_source=hooks" class="inngest" target="_blank">
+    <a href="https://www.inngest.com/?utm_source=typedwebhook.tools&utm_medium=footer" class="inngest" target="_blank">
       <img src="/inngest-blue.svg" alt="Inngest" height="25" />
       Event-driven serverless functions
     </a>
