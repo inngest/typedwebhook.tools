@@ -30,7 +30,12 @@
         href="https://github.com/inngest/typedwebhook.tools"
         data-icon="octicon-star"
         data-size="large"
-        aria-label="Star inngest/typedwebhook.tools on GitHub">Star on GitHub</a
+        aria-label="Star inngest/typedwebhook.tools on GitHub">
+        <svg viewBox="0 0 16 16" width="16" height="16" class="octicon octicon-star" aria-hidden="true">
+          <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path>
+        </svg>
+        Star on GitHub
+        </a
       >
     </div>
     <a href="https://www.producthunt.com/posts/typedwebhook-tools?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-typedwebhook-tools" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=332915&theme=light" alt="TypedWebhook.tools - Inspect webhook payloads with automatic type generation | Product Hunt" style="width: 164px; height: 35px;" width="164" height="35" /></a>
@@ -81,6 +86,33 @@
   }
   .header-buttons > * {
     margin-left: 1.5rem;
+  }
+
+  /* style fallback if js doesn't load */
+  .github-button {
+    display: inline-flex;
+    height: 28px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 16px;
+
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
+    font-weight: 600;
+    
+    color: #24292f;
+    background-color: #ebf0f4;
+    background-repeat: repeat-x;
+    background-position: -1px -1px;
+    background-size: 110% 110%;
+    border: 1px solid;
+    border-color: #ccd1d5;
+    border-color: rgba(27,31,36,.15);
+    border-radius: 0.25em;
+    background-image: linear-gradient(180deg, #f6f8fa, #ebf0f4 90%);
+    text-decoration: none;
+  }
+  .github-button .octicon-star {
+    margin-right: 3px;
   }
 
   .home {
