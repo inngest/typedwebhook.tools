@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { JsonView } from '@zerodevx/svelte-json-view';
   import { toast } from '@zerodevx/svelte-toast';
   import * as wasm from '$lib/wasm';
 
