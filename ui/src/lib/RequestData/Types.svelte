@@ -1,6 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { toast } from '@zerodevx/svelte-toast';
+  import Highlight from 'svelte-highlight';
+  import typescript from 'svelte-highlight/src/languages/typescript';
+  import json from 'svelte-highlight/src/languages/json';
+  import { githubDark } from 'svelte-highlight/src/styles';
+
   import * as wasm from '$lib/wasm';
 
   export let body = '';
@@ -24,10 +29,6 @@
       toast.push('Type copied to clipboard');
     } catch (e) {}
   };
-  import Highlight from 'svelte-highlight';
-  import typescript from 'svelte-highlight/src/languages/typescript';
-  import json from 'svelte-highlight/src/languages/json';
-  import { githubDark } from 'svelte-highlight/src/styles';
 </script>
 
 <svelte:head>
