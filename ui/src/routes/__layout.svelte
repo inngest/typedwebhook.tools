@@ -23,14 +23,17 @@
     <span>Test &amp; type webhooks</span>
   </a>
 
-  <div>
-    <a
-      class="github-button"
-      href="https://github.com/inngest/typedwebhook.tools"
-      data-icon="octicon-star"
-      data-size="large"
-      aria-label="Star inngest/typedwebhook.tools on GitHub">Star on GitHub</a
-    >
+  <div class="header-buttons">
+    <div>
+      <a
+        class="github-button"
+        href="https://github.com/inngest/typedwebhook.tools"
+        data-icon="octicon-star"
+        data-size="large"
+        aria-label="Star inngest/typedwebhook.tools on GitHub">Star on GitHub</a
+      >
+    </div>
+    <a href="https://www.producthunt.com/posts/typedwebhook-tools?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-typedwebhook-tools" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=332915&theme=light" alt="TypedWebhook.tools - Inspect webhook payloads with automatic type generation | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
   </div>
 </header>
 
@@ -69,6 +72,14 @@
   header img {
     height: 2rem;
     margin: 0 0.5rem 0 0;
+  }
+
+  .header-buttons {
+    display: flex;
+    align-items: center;
+  }
+  .header-buttons > * {
+    margin-left: 1.5rem;
   }
 
   .home {
