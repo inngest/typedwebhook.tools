@@ -5,6 +5,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import state, { connect } from '$lib/stores';
+  import { injectGithub } from '$lib/github';
   import url from '$lib/url';
   import WebhookURL from '$lib/WebhookURL.svelte';
   import RequestList from '$lib/RequestList.svelte';
@@ -13,6 +14,8 @@
 
   onMount(async () => {
     connect();
+    // Inject the GH button.
+    injectGithub();
   });
 </script>
 
