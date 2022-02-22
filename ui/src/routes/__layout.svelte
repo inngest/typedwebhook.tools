@@ -33,7 +33,7 @@
         aria-label="Star inngest/typedwebhook.tools on GitHub">Star on GitHub</a
       >
     </div>
-    <a href="https://www.producthunt.com/posts/typedwebhook-tools?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-typedwebhook-tools" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=332915&theme=light" alt="TypedWebhook.tools - Inspect webhook payloads with automatic type generation | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+    <a href="https://www.producthunt.com/posts/typedwebhook-tools?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-typedwebhook-tools" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=332915&theme=light" alt="TypedWebhook.tools - Inspect webhook payloads with automatic type generation | Product Hunt" style="width: 164px; height: 35px;" width="164" height="35" /></a>
   </div>
 </header>
 
@@ -77,6 +77,7 @@
   .header-buttons {
     display: flex;
     align-items: center;
+    line-height: 0;
   }
   .header-buttons > * {
     margin-left: 1.5rem;
