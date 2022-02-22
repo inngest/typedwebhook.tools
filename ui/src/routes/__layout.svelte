@@ -13,6 +13,7 @@
     property="og:description"
     content="A tool to test webhooks and generate payload types.  Instantly test and inspect webhooks with a free, unique URL."
   />
+  <meta property="og:image" content="/social-preview.png" />
 </svelte:head>
 
 <header>
