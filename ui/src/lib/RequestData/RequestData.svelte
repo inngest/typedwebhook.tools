@@ -16,7 +16,7 @@
   // Which view we have enabled, based off of the hash.
 
   // Extract all headers from
-  $: headerKeys = Object.keys(headers)
+  $: headerKeys = Object.keys(headers || {})
     .sort((a, b) => a.localeCompare(b))
     .filter((key) => key.indexOf('cf-') !== 0);
 
