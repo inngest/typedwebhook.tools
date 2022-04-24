@@ -16,10 +16,12 @@
     }
   });
 
-  $: list = $url?.pathname?.replace('/', '').split("+");
-
+  $: list = ($url?.pathname?.replace('/', '').split("+") || []).map(a => parseInt(a, 10));
   $: index = parseInt(list[0] || "1", 10);
   $: data = $state.requests[$state.requests.length - index] || {};
+
+  $: selected = list.map(n => $state.requests[n - 1]);
+
 </script>
 
 <svelte:head>
@@ -29,7 +31,7 @@
 <RequestList items={$state.requests} />
 <main>
   <WebhookURL path={$state.url} />
-  <RequestData headers={data.headers} body={data.body} />
+  <RequestData headers={data.headers} body={data.body} selected={selected} />
 </main>
 
 <style>

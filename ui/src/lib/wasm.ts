@@ -1,5 +1,7 @@
-type FromJSON = (input: string) => string | object;
-type ToTS = (input: string) => string;
+type fromJSON = (input: string) => string | object;
+type toTS = (input: string) => string;
+type toJSONSchema = (input: string) => string;
+type merge = (a: string, b: string) => string;
 
 declare global {
   interface Window {
