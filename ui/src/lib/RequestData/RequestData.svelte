@@ -13,6 +13,8 @@
   export let headers = {};
   export let time = '';
 
+  export let selected = [];
+
   // Which view we have enabled, based off of the hash.
 
   // Extract all headers from
@@ -43,27 +45,44 @@
   {#if preview}
     <p>Waiting for your first request...</p>
   {:else}
-    <p>Request received from <code>{headers['x-real-ip']}</code></p>
+    {#if selected.length == 1}
+      <p>Request received from <code>{(headers || {})['x-real-ip']}</code></p>
+    {:else}
+      <p>{selected.length} requests selected. Showing a single type which allows all requests.</p>
+    {/if}
   {/if}
 
-  <div class="header-table">
-    <div class="th">Header</div>
-    <div class="th">Value</div>
-    {#each headerKeys as header}
-      <div class="header-name">{header}</div>
-      <div>{(headers || {})[header]}</div>
-    {/each}
-  </div>
+  {#if selected.length <= 1}
+    <div class="header-table">
+      <div class="th">Header</div>
+      <div class="th">Value</div>
+      {#each headerKeys as header}
+        <div class="header-name">{header}</div>
+        <div>{(headers || {})[header]}</div>
+      {/each}
+    </div>
+  {/if}
 
   <div class="body">
-    <Tabs
-      current={$url?.hash || '#body'}
-      tabs={[
-        { label: 'Body', href: '#body', onClick: () => {} },
-        { label: 'JSON', href: '#json', onClick: () => {} },
-        { label: 'Types', href: '#types', onClick: () => {} }
-      ]}
-    />
+
+
+    {#if selected.length <= 1}
+      <Tabs
+        current={$url?.hash || '#body'}
+        tabs={[
+          { label: 'Body', href: '#body', onClick: () => {} },
+          { label: 'JSON', href: '#json', onClick: () => {} },
+          { label: 'Types', href: '#types', onClick: () => {} }
+        ]}
+      />
+    {:else}
+      <Tabs
+        current={$url?.hash || '#types'}
+        tabs={[
+          { label: 'Types', href: '#types', onClick: () => {} }
+        ]}
+      />
+    {/if}
 
     <div class="body-content">
       {#if ($url?.hash || '#body') === '#body'}
@@ -87,7 +106,7 @@
           </p>
         {:else}
           <div class="json">
-            <Types {body} />
+            <Types {body} multiple={selected.map(i => i.body)} />
           </div>
         {/if}
       {/if}
@@ -127,6 +146,7 @@
 
   .body {
     position: relative;
+    margin: 2rem 0 0;
   }
   .body-content {
     margin-top: 1rem;

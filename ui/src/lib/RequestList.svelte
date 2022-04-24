@@ -6,15 +6,18 @@
 
   export let items = [];
 
-  $: index = parseInt($url?.pathname?.replace('/', ''), 10);
+  $: list = $url?.pathname?.replace('/', '')?.split("+") || [];
+  $: index = parseInt(list[0] || "1", 10);
 
   const onclick = (e) => {
     e.preventDefault();
 
+    console.log(e, list, items);
+
     let data = e.target.getAttribute('data-n');
 
-    if (window.event.ctrlKey) {
-      // ctrl was held down during the click.  Detect which items
+    if (e.shiftKey) {
+      // shift was held down during the click.  Detect which items
       // were selected;  if the item includes this remove it from the list.
       list = $url?.pathname.substr(1).split("+");
       if (list.indexOf(data) > -1) {
@@ -39,14 +42,14 @@
 </script>
 
 <div>
-  {#if items.length === -1}
+  {#if items.length === 0}
     <Loading text="Waiting for requests..." />
   {:else}
     <h2>Incoming requests</h2>
-    <p>cmd/ctrl-click to select multiple requests at once.  A single type will be generatedk</p>
+    <p>shift-click to select multiple requests at once.  A single type will be generated.</p>
     <ol>
       {#each items as item, n}
-        <li class:active={items.length - n === index}>
+        <li class:active={list.indexOf((items.length - n).toString()) >= 0}>
           <a href="/{items.length - n}" on:click={onclick} data-n={items.length - n}>
             <span class="request-timestamp"
               >#{items.length - n} {new Date(item.ts).toLocaleString().split(', ')[1] || ''}</span
@@ -70,7 +73,7 @@
   }
 
   p {
-    margin: 0 1rem;
+    margin: 0 1rem 1rem;
     font-size: .8rem;
     color: var(--text-color-light);
     opacity: .8;

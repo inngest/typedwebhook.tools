@@ -9,9 +9,33 @@
   import * as wasm from '$lib/wasm';
 
   export let body = '';
+  // multiple allows for multiple bodies to be added, which will be merged.
+  export let multiple = [];
+
+  $: result = [];
 
   $: promise = wasm.init(() => {
-    const cue = fromJSON(body);
+
+    if (multiple.length === 1) {
+      const cue = fromJSON(body);
+      const ts: string = toTS('#Event: ' + cue);
+
+      let schema = '{}';
+      const schemas = toJSONSchema('#Event: ' + cue);
+      if (schemas.indexOf('error') === -1) {
+        schema = JSON.parse(schemas).All.Event;
+      }
+
+      return { cue, ts, schema: JSON.stringify(schema, null, '  ') };
+    }
+
+    // iterate through all cuedefs, creating definitions for each item.
+    const cuedefs = multiple.map(item => {
+      return fromJSON(item);
+    });
+
+    // merge all definitions together.
+    const cue = multiple.reduce((acc, item) => merge(acc, item), '{}');
     const ts: string = toTS('#Event: ' + cue);
 
     let schema = '{}';
