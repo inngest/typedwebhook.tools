@@ -16,7 +16,9 @@
     }
   });
 
-  $: index = parseInt($url?.pathname?.replace('/', ''), 10);
+  $: list = $url?.pathname?.replace('/', '').split("+");
+
+  $: index = parseInt(list[0] || "1", 10);
   $: data = $state.requests[$state.requests.length - index] || {};
 </script>
 
