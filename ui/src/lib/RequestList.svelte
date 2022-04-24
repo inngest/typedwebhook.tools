@@ -9,8 +9,21 @@
   $: index = parseInt($url?.pathname?.replace('/', ''), 10);
 
   const onclick = (e) => {
-    const data = e.target.getAttribute('data-n');
     e.preventDefault();
+
+    let data = e.target.getAttribute('data-n');
+
+    if (window.event.ctrlKey) {
+      // ctrl was held down during the click.  Detect which items
+      // were selected;  if the item includes this remove it from the list.
+      list = $url?.pathname.substr(1).split("+");
+      if (list.indexOf(data) > -1) {
+        data = list.filter(n => n === data).join("+");
+      } else {
+        data = list.concat([data]).join("+");
+      }
+    }
+
     goto('/' + data + $url?.hash);
   };
 
@@ -26,10 +39,11 @@
 </script>
 
 <div>
-  {#if items.length === 0}
+  {#if items.length === -1}
     <Loading text="Waiting for requests..." />
   {:else}
     <h2>Incoming requests</h2>
+    <p>cmd/ctrl-click to select multiple requests at once.  A single type will be generatedk</p>
     <ol>
       {#each items as item, n}
         <li class:active={items.length - n === index}>
@@ -53,6 +67,13 @@
     margin: 0.75rem 1rem;
     color: var(--text-color-light);
     font-weight: 600;
+  }
+
+  p {
+    margin: 0 1rem;
+    font-size: .8rem;
+    color: var(--text-color-light);
+    opacity: .8;
   }
 
   ol {
