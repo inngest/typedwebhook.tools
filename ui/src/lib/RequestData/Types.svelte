@@ -35,7 +35,10 @@
     });
 
     // merge all definitions together.
-    const cue = multiple.reduce((acc, item) => merge(acc, item), '{}');
+    const cue = cuedefs.reduce((acc, item) => {
+      return merge(acc, item);
+    }, cuedefs[0]);
+
     const ts: string = toTS('#Event: ' + cue);
 
     let schema = '{}';

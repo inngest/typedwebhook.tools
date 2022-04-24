@@ -12,8 +12,6 @@
   const onclick = (e) => {
     e.preventDefault();
 
-    console.log(e, list, items);
-
     let data = e.target.getAttribute('data-n');
 
     if (e.shiftKey) {

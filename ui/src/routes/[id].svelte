@@ -20,7 +20,9 @@
   $: index = parseInt(list[0] || "1", 10);
   $: data = $state.requests[$state.requests.length - index] || {};
 
-  $: selected = list.map(n => $state.requests[n - 1]);
+  $: selected = list.map(n => {
+    return $state.requests[$state.requests.length - n]
+  });
 
 </script>
 

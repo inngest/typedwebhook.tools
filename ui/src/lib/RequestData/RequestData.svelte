@@ -24,7 +24,6 @@
 
   $: [json, isJSON] = (() => {
     try {
-      console.log('Parsing JSON!', JSON.parse(body));
       return [JSON.stringify(JSON.parse(body), null, '  '), true];
     } catch (e) {
       return [undefined, false];
@@ -85,7 +84,7 @@
     {/if}
 
     <div class="body-content">
-      {#if ($url?.hash || '#body') === '#body'}
+      {#if ($url?.hash || '#body') === '#body' && selected.length <= 1}
         <code class="pre">{body || 'No data'}</code>
       {/if}
 
@@ -99,7 +98,7 @@
         {/if}
       {/if}
 
-      {#if $url?.hash === '#types'}
+      {#if $url?.hash === '#types' || selected.length > 1}
         {#if !isJSON}
           <p class="no-json">
             This request is not valid JSON, so we can't make types for this body 😢
