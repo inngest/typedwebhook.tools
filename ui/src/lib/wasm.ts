@@ -12,9 +12,9 @@ declare global {
 let loaded = false;
 export async function init(after?: () => any) {
   // only run once.
-  if (loaded || !global.Go) return;
+  if (loaded || !window.Go) return;
 
-  const go = new global.Go();
+  const go = new window.Go();
   let result = await WebAssembly.instantiateStreaming(fetch('/wasm/types.wasm'), go.importObject);
   go.run(result.instance);
 
